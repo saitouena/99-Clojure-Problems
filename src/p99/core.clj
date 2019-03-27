@@ -241,54 +241,89 @@
 ;; problem 28 (Easy)
 ;; restrictions: flatten
 (defn flatten-a-sequence-solution
-  [& args] ;; update args as needed
+  [es] ;; update args as needed
   ;; Write a function which flattens a sequence.
-  nil)
+  (if (sequential? es)
+    (mapcat flatten-a-sequence-solution es)
+    (seq [es])))
+;; muzui
+;; ok?
 
 
 ;; problem 29 (Easy)
 (defn get-the-caps-solution
-  [& args] ;; update args as needed
+  [s] ;; update args as needed
   ;; Write a function which takes a string and returns a new string containing
   ;; only the capital letters.
-  nil)
-
+  (apply str (filter #(Character/isUpperCase %) (seq s))))
 
 ;; problem 30 (Easy)
 (defn compress-a-sequence-solution
-  [& args] ;; update args as needed
+  [es] ;; update args as needed
   ;; Write a function which removes consecutive duplicates from a sequence.
-  nil)
+  (if (empty? es)
+    es
+    (loop [prev (first es)
+           es (seq (rest es))
+           acc (seq [prev])]
+      (if (empty? es)
+        (reverse acc)
+        (recur (first es) (rest es) (if (= prev (first es))
+                                      acc
+                                      (cons (first es) acc)))))))
 
 
 ;; problem 31 (Easy)
 (defn pack-a-sequence-solution
-  [& args] ;; update args as needed
+  [es] ;; update args as needed
   ;; Write a function which packs consecutive duplicates into sub-lists.
-  nil)
-
+  (if (empty? es)
+    es
+    (loop [prev (first es)
+           es (seq (rest es))
+           acc (seq [prev])
+           acc-all (seq [])]
+      (if (empty? es)
+        (reverse (cons acc acc-all))
+        (if (= (first es) prev)
+          (recur
+           (first es)
+           (rest es)
+           (cons (first es) acc)
+           acc-all)
+          (recur
+           (first es)
+           (rest es)
+           (seq [(first es)])
+           (cons acc acc-all)))))))
 
 ;; problem 32 (Easy)
 (defn duplicate-a-sequence-solution
-  [& args] ;; update args as needed
+  [es] ;; update args as needed
   ;; Write a function which duplicates each element of a sequence.
-  nil)
+  (mapcat #(seq [% %]) es))
 
 
 ;; problem 33 (Easy)
 (defn replicate-a-sequence-solution
-  [& args] ;; update args as needed
+  [es n] ;; update args as needed
   ;; Write a function which replicates each element of a sequence a variable
   ;; number of times.
-  nil)
+  (mapcat #(repeat n %) es))
 
 
 ;; problem 34 (Easy)
 ;; restrictions: range
 (defn implement-range-solution
-  [& args] ;; update args as needed
+  [a b] ;; update args as needed
+  ;; [a, b)
   ;; Write a function which creates a list of all integers in a given range.
-  nil)
+  (loop [a a
+         b b
+         acc '()]
+    (if (>= a b)
+      (reverse acc)
+      (recur (inc a) b (cons a acc)))))
 
 
 ;; problem 35 (Elementary)

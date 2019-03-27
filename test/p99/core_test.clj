@@ -183,56 +183,56 @@
 
 ;
 ; ;; problem 28
-; (deftest can-flatten-a-sequence
-;   (is (= (flatten-a-sequence-solution '((1 2) 3 [4 [5 6]])) '(1 2 3 4 5 6)))
-;   (is (= (flatten-a-sequence-solution ["a" ["b"] "c"]) '("a" "b" "c")))
-;   (is (= (flatten-a-sequence-solution '((((:a))))) '(:a))))
+(deftest can-flatten-a-sequence
+  (is (= (flatten-a-sequence-solution '((1 2) 3 [4 [5 6]])) '(1 2 3 4 5 6)))
+  (is (= (flatten-a-sequence-solution ["a" ["b"] "c"]) '("a" "b" "c")))
+  (is (= (flatten-a-sequence-solution '((((:a))))) '(:a))))
 ;
 ;
 ; ;; problem 29
-; (deftest can-get-the-caps
-;   (is (= (get-the-caps-solution "HeLlO, WoRlD!") "HLOWRD"))
-;   (is (empty? (get-the-caps-solution "nothing")))
-;   (is (= (get-the-caps-solution "$#A(*&987Zf") "AZ")))
-;
+(deftest can-get-the-caps
+  (is (= (get-the-caps-solution "HeLlO, WoRlD!") "HLOWRD"))
+  (is (empty? (get-the-caps-solution "nothing")))
+  (is (= (get-the-caps-solution "$#A(*&987Zf") "AZ")))
+
 ;
 ; ;; problem 30
-; (deftest can-compress-a-sequence
-;   (is (= (apply str (compress-a-sequence-solution "Leeeeeerrroyyy")) "Leroy"))
-;   (is (= (compress-a-sequence-solution [1 1 2 3 3 2 2 3]) '(1 2 3 2 3)))
-;   (is (= (compress-a-sequence-solution [[1 2] [1 2] [3 4] [1 2]]) '([1 2] [3 4] [1 2]))))
+(deftest can-compress-a-sequence
+  (is (= (apply str (compress-a-sequence-solution "Leeeeeerrroyyy")) "Leroy"))
+  (is (= (compress-a-sequence-solution [1 1 2 3 3 2 2 3]) '(1 2 3 2 3)))
+  (is (= (compress-a-sequence-solution [[1 2] [1 2] [3 4] [1 2]]) '([1 2] [3 4] [1 2]))))
 ;
 ;
-; ;; problem 31
-; (deftest can-pack-a-sequence
-;   (is (= (pack-a-sequence-solution [1 1 2 1 1 1 3 3]) '((1 1) (2) (1 1 1) (3 3))))
-;   (is (= (pack-a-sequence-solution [:a :a :b :b :c]) '((:a :a) (:b :b) (:c))))
-;   (is (= (pack-a-sequence-solution [[1 2] [1 2] [3 4]]) '(([1 2] [1 2]) ([3 4])))))
+;; problem 31
+(deftest can-pack-a-sequence
+  (is (= (pack-a-sequence-solution [1 1 2 1 1 1 3 3]) '((1 1) (2) (1 1 1) (3 3))))
+  (is (= (pack-a-sequence-solution [:a :a :b :b :c]) '((:a :a) (:b :b) (:c))))
+  (is (= (pack-a-sequence-solution [[1 2] [1 2] [3 4]]) '(([1 2] [1 2]) ([3 4])))))
+
+;
+;; problem 32
+(deftest can-duplicate-a-sequence
+  (is (= (duplicate-a-sequence-solution [1 2 3]) '(1 1 2 2 3 3)))
+  (is (= (duplicate-a-sequence-solution [:a :a :b :b]) '(:a :a :a :a :b :b :b :b)))
+  (is (= (duplicate-a-sequence-solution [[1 2] [3 4]]) '([1 2] [1 2] [3 4] [3 4])))
+  (is (= (duplicate-a-sequence-solution [[1 2] [3 4]]) '([1 2] [1 2] [3 4] [3 4]))))
 ;
 ;
-; ;; problem 32
-; (deftest can-duplicate-a-sequence
-;   (is (= (duplicate-a-sequence-solution [1 2 3]) '(1 1 2 2 3 3)))
-;   (is (= (duplicate-a-sequence-solution [:a :a :b :b]) '(:a :a :a :a :b :b :b :b)))
-;   (is (= (duplicate-a-sequence-solution [[1 2] [3 4]]) '([1 2] [1 2] [3 4] [3 4])))
-;   (is (= (duplicate-a-sequence-solution [[1 2] [3 4]]) '([1 2] [1 2] [3 4] [3 4]))))
+;; problem 33
+(deftest can-replicate-a-sequence
+  (is (= (replicate-a-sequence-solution [1 2 3] 2) '(1 1 2 2 3 3)))
+  (is (= (replicate-a-sequence-solution [:a :b] 4) '(:a :a :a :a :b :b :b :b)))
+  (is (= (replicate-a-sequence-solution [4 5 6] 1) '(4 5 6)))
+  (is (= (replicate-a-sequence-solution [[1 2] [3 4]] 2) '([1 2] [1 2] [3 4] [3 4])))
+  (is (= (replicate-a-sequence-solution [44 33] 2) [44 44 33 33])))
 ;
 ;
-; ;; problem 33
-; (deftest can-replicate-a-sequence
-;   (is (= (replicate-a-sequence-solution [1 2 3] 2) '(1 1 2 2 3 3)))
-;   (is (= (replicate-a-sequence-solution [:a :b] 4) '(:a :a :a :a :b :b :b :b)))
-;   (is (= (replicate-a-sequence-solution [4 5 6] 1) '(4 5 6)))
-;   (is (= (replicate-a-sequence-solution [[1 2] [3 4]] 2) '([1 2] [1 2] [3 4] [3 4])))
-;   (is (= (replicate-a-sequence-solution [44 33] 2) [44 44 33 33])))
-;
-;
-; ;; problem 34
-; (deftest can-implement-range
-;   (is (= (implement-range-solution 1 4) '(1 2 3)))
-;   (is (= (implement-range-solution -2 2) '(-2 -1 0 1)))
-;   (is (= (implement-range-solution 5 8) '(5 6 7))))
-;
+;; problem 34
+(deftest can-implement-range
+  (is (= (implement-range-solution 1 4) '(1 2 3)))
+  (is (= (implement-range-solution -2 2) '(-2 -1 0 1)))
+  (is (= (implement-range-solution 5 8) '(5 6 7))))
+
 ;
 ; ;; problem 35
 ; (deftest can-local-bindings
