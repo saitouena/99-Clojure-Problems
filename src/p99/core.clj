@@ -327,17 +327,12 @@
 
 
 ;; problem 35 (Elementary)
-(defn local-bindings-solution
-  [& args] ;; update args as needed
-  ;; Clojure lets you give local names to values using the special let-form.
-  nil)
+(def local-bindings-solution
+  7)
 
 
 ;; problem 36 (Elementary)
-(defn let-it-be-solution
-  [& args] ;; update args as needed
-  ;; Can you bind x, y, and z so that these are all true?
-  nil)
+
 
 
 ;; problem 37 (Elementary)
@@ -350,42 +345,70 @@
 ;; problem 38 (Easy)
 ;; restrictions: max, max-key
 (defn maximum-value-solution
-  [& args] ;; update args as needed
+  [& ns] ;; update args as needed
   ;; Write a function which takes a variable number of parameters and returns
   ;; the maximum value.
-  nil)
+  (loop [ns ns
+         m (first ns)]
+    (if (empty? ns)
+      m
+      (recur (rest ns) (if (< m (first ns))
+                         (first ns)
+                         m)))))
 
 
 ;; problem 39 (Easy)
 ;; restrictions: interleave
 (defn interleave-two-seqs-solution
-  [& args] ;; update args as needed
+  [es1 es2] ;; update args as needed
   ;; Write a function which takes two sequences and returns the first item from
   ;; each, then the second item from each, then the third, etc.
-  nil)
-
+  (loop [es1 es1
+         es2 es2
+         acc nil]
+    (if (or (empty? es1) (empty? es2))
+      (reverse acc)
+      (recur (rest es1) (rest es2) (cons (first es2) (cons (first es1) acc))))))
 
 ;; problem 40 (Easy)
 ;; restrictions: interpose
 (defn interpose-a-seq-solution
-  [& args] ;; update args as needed
+  [sep es] ;; update args as needed
   ;; Write a function which separates the items of a sequence by an arbitrary
   ;; value.
-  nil)
-
+  (if (empty? es)
+    es
+    (loop [es es
+           acc nil]
+      (if (empty? (rest es))
+        (reverse (cons (first es) acc))
+        (recur (rest es) (cons sep (cons (first es) acc)))))))
 
 ;; problem 41 (Easy)
 (defn drop-every-nth-item-solution
-  [& args] ;; update args as needed
+  [es m] ;; update args as needed
   ;; Write a function which drops every Nth item from a sequence.
-  nil)
+  (loop [es es
+         acc nil
+         c 1]
+    (if (empty? es)
+      (reverse acc)
+      (recur (rest es)
+             (if (= (mod c m) 0)
+               acc
+               (cons (first es) acc))
+             (inc c)))))
 
 
 ;; problem 42 (Easy)
 (defn factorial-fun-solution
-  [& args] ;; update args as needed
+  [n] ;; update args as needed
   ;; Write a function which calculates factorials.
-  nil)
+  (loop [n n
+         f 1]
+    (if (= n 0)
+      f
+      (recur (dec n) (* n f)))))
 
 
 ;; problem 43 (Medium)

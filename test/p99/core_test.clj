@@ -233,62 +233,62 @@
   (is (= (implement-range-solution -2 2) '(-2 -1 0 1)))
   (is (= (implement-range-solution 5 8) '(5 6 7))))
 
-;
-; ;; problem 35
-; (deftest can-local-bindings
-;   (is (= local-bindings-solution (let [x 5] (+ 2 x))))
-;   (is (= local-bindings-solution (let [x 3, y 10] (- y x))))
-;   (is (= local-bindings-solution (let [x 21] (let [y 3] (/ x y))))))
-;
-;
-; ;; problem 36
-; (deftest can-let-it-be
-;   (is (= 10 (let let-it-be-solution (+ x y))))
-;   (is (= 4 (let let-it-be-solution (+ y z))))
-;   (is (= 1 (let let-it-be-solution z))))
-;
-;
-; ;; problem 37
-; (deftest can-regular-expressions
-;   (is (= regular-expressions-solution (apply str (re-seq #"[A-Z]+" "bA1B3Ce ")))))
-;
-;
-; ;; problem 38
-; (deftest can-maximum-value
-;   (is (= (maximum-value-solution 1 8 3 4) 8))
-;   (is (= (maximum-value-solution 30 20) 30))
-;   (is (= (maximum-value-solution 45 67 11) 67)))
-;
-;
+
+;; problem 35
+(deftest can-local-bindings
+  (is (= local-bindings-solution (let [x 5] (+ 2 x))))
+  (is (= local-bindings-solution (let [x 3, y 10] (- y x))))
+  (is (= local-bindings-solution (let [x 21] (let [y 3] (/ x y))))))
+
+
+;; problem 36
+(deftest can-let-it-be
+  (is (= 10 (let [x 7 y 3 z 1] (+ x y))))
+  (is (= 4 (let [x 7 y 3 z 1] (+ y z))))
+  (is (= 1 (let [x 7 y 3 z 1] z))))
+
+
+;; problem 37
+(deftest can-regular-expressions
+  (is (= "ABC" (apply str (re-seq #"[A-Z]+" "bA1B3Ce ")))))
+
+
+;; problem 38
+(deftest can-maximum-value
+  (is (= (maximum-value-solution 1 8 3 4) 8))
+  (is (= (maximum-value-solution 30 20) 30))
+  (is (= (maximum-value-solution 45 67 11) 67)))
+
+
 ; ;; problem 39
-; (deftest can-interleave-two-seqs
-;   (is (= (interleave-two-seqs-solution [1 2 3] [:a :b :c]) '(1 :a 2 :b 3 :c)))
-;   (is (= (interleave-two-seqs-solution [1 2] [3 4 5 6]) '(1 3 2 4)))
-;   (is (= (interleave-two-seqs-solution [1 2 3 4] [5]) [1 5]))
-;   (is (= (interleave-two-seqs-solution [30 20] [25 15]) [30 25 20 15])))
+(deftest can-interleave-two-seqs
+  (is (= (interleave-two-seqs-solution [1 2 3] [:a :b :c]) '(1 :a 2 :b 3 :c)))
+  (is (= (interleave-two-seqs-solution [1 2] [3 4 5 6]) '(1 3 2 4)))
+  (is (= (interleave-two-seqs-solution [1 2 3 4] [5]) [1 5]))
+  (is (= (interleave-two-seqs-solution [30 20] [25 15]) [30 25 20 15])))
 ;
 ;
 ; ;; problem 40
-; (deftest can-interpose-a-seq
-;   (is (= (interpose-a-seq-solution 0 [1 2 3]) [1 0 2 0 3]))
-;   (is (= (apply str (interpose-a-seq-solution ", " ["one" "two" "three"])) "one, two, three"))
-;   (is (= (interpose-a-seq-solution :z [:a :b :c :d]) [:a :z :b :z :c :z :d])))
-;
+(deftest can-interpose-a-seq
+  (is (= (interpose-a-seq-solution 0 [1 2 3]) [1 0 2 0 3]))
+  (is (= (apply str (interpose-a-seq-solution ", " ["one" "two" "three"])) "one, two, three"))
+  (is (= (interpose-a-seq-solution :z [:a :b :c :d]) [:a :z :b :z :c :z :d])))
+
 ;
 ; ;; problem 41
-; (deftest can-drop-every-nth-item
-;   (is (= (drop-every-nth-item-solution [1 2 3 4 5 6 7 8] 3) [1 2 4 5 7 8]))
-;   (is (= (drop-every-nth-item-solution [:a :b :c :d :e :f] 2) [:a :c :e]))
-;   (is (= (drop-every-nth-item-solution [1 2 3 4 5 6] 4) [1 2 3 5 6])))
-;
-;
-; ;; problem 42
-; (deftest can-factorial-fun
-;   (is (= (factorial-fun-solution 1) 1))
-;   (is (= (factorial-fun-solution 3) 6))
-;   (is (= (factorial-fun-solution 5) 120))
-;   (is (= (factorial-fun-solution 8) 40320)))
-;
+(deftest can-drop-every-nth-item
+  (is (= (drop-every-nth-item-solution [1 2 3 4 5 6 7 8] 3) [1 2 4 5 7 8]))
+  (is (= (drop-every-nth-item-solution [:a :b :c :d :e :f] 2) [:a :c :e]))
+  (is (= (drop-every-nth-item-solution [1 2 3 4 5 6] 4) [1 2 3 5 6])))
+
+
+;; problem 42
+(deftest can-factorial-fun
+  (is (= (factorial-fun-solution 1) 1))
+  (is (= (factorial-fun-solution 3) 6))
+  (is (= (factorial-fun-solution 5) 120))
+  (is (= (factorial-fun-solution 8) 40320)))
+
 ;
 ; ;; problem 43
 ; (deftest can-reverse-interleave
