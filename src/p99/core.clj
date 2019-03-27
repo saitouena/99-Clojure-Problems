@@ -16,7 +16,7 @@
   ;; This is a clojure form. Enter a value which will make the form evaluate to
   ;; true. Don't over think it! If you are confused, see the getting started
   ;; page. Hint: true is equal to true.
-  nil)
+  true)
 
 
 ;; problem 2 (Elementary)
@@ -24,53 +24,53 @@
   ;; If you are not familiar with polish notation, simple arithmetic might seem
   ;; confusing. Note: Enter only enough to fill in the blank (in this case, a
   ;; single number) - do not retype the whole problem.
-  nil)
+  4)
 
 
 ;; problem 3 (Elementary)
 (def intro-to-strings-solution
   ;; Clojure strings are Java strings. This means that you can use any of the
   ;; Java string methods on Clojure strings.
-  nil)
+  "HELLO WORLD")
 
 
 ;; problem 4 (Elementary)
 (def intro-to-lists-solution
   ;; Lists can be constructed with either a function or a quoted form.
-  nil)
+  (list :a :b :c))
 
 
 ;; problem 5 (Elementary)
 (def lists-conj-solution
   ;; When operating on a list, the conj function will return a new list with
   ;; one or more items "added" to the front.
-  nil)
+  (list 1 2 3 4))
 
 
 ;; problem 6 (Elementary)
 (def intro-to-vectors-solution
   ;; Vectors can be constructed several ways. You can compare them with lists.
-  nil)
+  [:a :b :c])
 
 
 ;; problem 7 (Elementary)
 (def vectors-conj-solution
   ;; When operating on a Vector, the conj function will return a new vector
   ;; with one or more items "added" to the end.
-  nil)
+  [1 2 3 4])
 
 
 ;; problem 8 (Elementary)
 (def intro-to-sets-solution
   ;; Sets are collections of unique values.
-  nil)
+  #{:a :b :c :d})
 
 
 ;; problem 9 (Elementary)
 (def sets-conj-solution
   ;; When operating on a set, the conj function returns a new set with one or
   ;; more keys "added".
-  nil)
+  2)
 
 
 ;; problem 10 (Elementary)
@@ -78,135 +78,164 @@
   ;; Maps store key-value pairs. Both maps and keywords can be used as lookup
   ;; functions. Commas can be used to make maps more readable, but they are not
   ;; required.
-  nil)
+  20)
 
 
 ;; problem 11 (Elementary)
 (def maps-conj-solution
   ;; When operating on a map, the conj function returns a new map with one or
   ;; more key-value pairs "added".
-  nil)
+  [:b 2])
 
 
 ;; problem 12 (Elementary)
 (def intro-to-sequences-solution
   ;; All Clojure collections support sequencing. You can operate on sequences
   ;; with functions like first, second, and last.
-  nil)
+  3)
 
 
 ;; problem 13 (Elementary)
 (def sequences-rest-solution
   ;; The rest function will return all the items of a sequence except the
   ;; first.
-  nil)
+  [20 30 40])
 
 
 ;; problem 14 (Elementary)
 (def intro-to-functions-solution
   ;; Clojure has many different ways to create functions.
-  nil)
+  8)
 
 
 ;; problem 15 (Elementary)
 (defn double-down-solution
-  [& args] ;; update args as needed
+  [x] ;; update args as needed
   ;; Write a function which doubles a number.
-  nil)
+  (* 2 x))
 
 
 ;; problem 16 (Elementary)
 (defn hello-world-solution
-  [& args] ;; update args as needed
+  [name] ;; update args as needed
   ;; Write a function which returns a personalized greeting.
-  nil)
+  (str "Hello, " name "!"))
 
 
 ;; problem 17 (Elementary)
-(defn sequences-map-solution
-  [& args] ;; update args as needed
+(def sequences-map-solution
   ;; The map function takes two arguments: a function (f) and a sequence (s).
   ;; Map returns a new sequence consisting of the result of applying f to each
   ;; item of s. Do not confuse the map function with the map data structure.
-  nil)
+  [6 7 8])
 
 
 ;; problem 18 (Elementary)
-(defn sequences-filter-solution
-  [& args] ;; update args as needed
+(def sequences-filter-solution
   ;; The filter function takes two arguments: a predicate function (f) and a
   ;; sequence (s). Filter returns a new sequence consisting of all the items of
   ;; s for which (f item) returns true.
-  nil)
+  [6 7])
 
 
 ;; problem 19 (Easy)
 ;; restrictions: last
 (defn last-element-solution
-  [& args] ;; update args as needed
+  [es] ;; update args as needed
   ;; Write a function which returns the last element in a sequence.
-  nil)
+  (loop [es es]
+    (if (empty? (rest es))
+      (first es)
+      (recur (rest es)))))
 
 
 ;; problem 20 (Easy)
 (defn penultimate-element-solution
-  [& args] ;; update args as needed
+  [es] ;; update args as needed
   ;; Write a function which returns the second to last element from a sequence.
-  nil)
+  (loop [es es]
+    (if (empty? (rest (rest es)))
+      (first es)
+      (recur (rest es)))))
 
 
 ;; problem 21 (Easy)
 ;; restrictions: nth
 (defn nth-element-solution
-  [& args] ;; update args as needed
+  [es n] ;; update args as needed
   ;; Write a function which returns the Nth element from a sequence.
-  nil)
+  (loop [es es n n]
+    (if (= 0 n)
+      (first es)
+      (recur (rest es) (dec n)))))
 
 
 ;; problem 22 (Easy)
 ;; restrictions: count
 (defn count-a-sequence-solution
-  [& args] ;; update args as needed
+  [es] ;; update args as needed
   ;; Write a function which returns the total number of elements in a sequence.
-  nil)
+  (loop [es es ans 0]
+    (if (empty? es)
+      ans
+      (recur (rest es) (inc ans)))))
 
 
 ;; problem 23 (Easy)
 ;; restrictions: reverse, rseq
 (defn reverse-a-sequence-solution
-  [& args] ;; update args as needed
+  [es] ;; update args as needed
   ;; Write a function which reverses a sequence.
-  nil)
+  (loop [es es acc []]
+    (if (empty? es)
+      acc
+      (recur (rest es) (cons (first es) acc)))))
 
 
 ;; problem 24 (Easy)
 (defn sum-it-all-up-solution
-  [& args] ;; update args as needed
+  [es] ;; update args as needed
   ;; Write a function which returns the sum of a sequence of numbers.
-  nil)
+  (loop [es es s 0]
+    (if (empty? es)
+      s
+      (recur (rest es) (+ s (first es))))))
 
 
 ;; problem 25 (Easy)
 (defn find-the-odd-numbers-solution
-  [& args] ;; update args as needed
+  [es] ;; update args as needed
   ;; Write a function which returns only the odd numbers from a sequence.
-  nil)
+  (loop [es es ans (seq [])]
+    (if (empty? es)
+      (reverse ans)
+      (if (odd? (first es))
+        (recur (rest es) (cons (first es) ans))
+        (recur (rest es) ans)))))
 
 
 ;; problem 26 (Easy)
 (defn fibonacci-sequence-solution
-  [& args] ;; update args as needed
+  [n] ;; update args as needed
   ;; Write a function which returns the first X fibonacci numbers.
-  nil)
-
+  (cond (= n 0) []
+        (= n 1) [1]
+        (= n 2) [1 1]
+        :else (loop [n (- n 2)
+                     f0 1
+                     f1 1
+                     ans [1 1]]
+                (if (= n 0)
+                  (reverse ans)
+                  (recur (dec n) f1 (+ f1 f0) (cons (+ f1 f0) ans))))))
 
 ;; problem 27 (Easy)
 (defn palindrome-detector-solution
-  [& args] ;; update args as needed
+  [es] ;; update args as needed
   ;; Write a function which returns true if the given sequence is a palindrome.
   ;;
   ;; Hint: "racecar" does not equal '(\r \a \c \e \c \a \r)
-  nil)
+  (= (reverse es) (seq es)))
 
 
 ;; problem 28 (Easy)
