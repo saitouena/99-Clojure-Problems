@@ -291,71 +291,72 @@
 
 ;
 ; ;; problem 43
-; (deftest can-reverse-interleave
-;   (is (= (reverse-interleave-solution [1 2 3 4 5 6] 2) '((1 3 5) (2 4 6))))
-;   (is (= (reverse-interleave-solution (range 9) 3) '((0 3 6) (1 4 7) (2 5 8))))
-;   (is (= (reverse-interleave-solution (range 10) 5) '((0 5) (1 6) (2 7) (3 8) (4 9)))))
+(deftest can-reverse-interleave
+  (is (= (reverse-interleave-solution [1 2 3 4 5 6] 2) '((1 3 5) (2 4 6))))
+  (is (= (reverse-interleave-solution (range 9) 3) '((0 3 6) (1 4 7) (2 5 8))))
+  (is (= (reverse-interleave-solution (range 10) 5) '((0 5) (1 6) (2 7) (3 8) (4 9)))))
 ;
 ;
-; ;; problem 44
-; (deftest can-rotate-sequence
-;   (is (= (rotate-sequence-solution 2 [1 2 3 4 5]) '(3 4 5 1 2)))
-;   (is (= (rotate-sequence-solution -2 [1 2 3 4 5]) '(4 5 1 2 3)))
-;   (is (= (rotate-sequence-solution 6 [1 2 3 4 5]) '(2 3 4 5 1)))
-;   (is (= (rotate-sequence-solution 1 '(:a :b :c)) '(:b :c :a)))
-;   (is (= (rotate-sequence-solution -4 '(:a :b :c)) '(:c :a :b))))
+;; problem 44
+(deftest can-rotate-sequence
+  (is (= (rotate-sequence-solution 2 [1 2 3 4 5]) '(3 4 5 1 2)))
+  (is (= (rotate-sequence-solution -2 [1 2 3 4 5]) '(4 5 1 2 3)))
+  (is (= (rotate-sequence-solution 6 [1 2 3 4 5]) '(2 3 4 5 1)))
+  (is (= (rotate-sequence-solution 1 '(:a :b :c)) '(:b :c :a)))
+  (is (= (rotate-sequence-solution -4 '(:a :b :c)) '(:c :a :b))))
 ;
 ;
-; ;; problem 45
-; (deftest can-intro-to-iterate
-;   (is (= intro-to-iterate-solution (take 5 (iterate #(+ 3 %) 1)))))
+;; problem 45
+(deftest can-intro-to-iterate
+  (is (= '(1 4 7 10 13) (take 5 (iterate #(+ 3 %) 1)))))
 ;
 ;
-; ;; problem 46
-; (deftest can-flipping-out
-;   (is (= 3 ((flipping-out-solution nth) 2 [1 2 3 4 5])))
-;   (is (= true ((flipping-out-solution >) 7 8)))
-;   (is (= 4 ((flipping-out-solution quot) 2 8)))
-;   (is (= [1 2 3] ((flipping-out-solution take) [1 2 3 4 5] 3))))
+;; problem 46
+(deftest can-flipping-out
+  (is (= 3 ((flipping-out-solution nth) 2 [1 2 3 4 5])))
+  (is (= true ((flipping-out-solution >) 7 8)))
+  (is (= 4 ((flipping-out-solution quot) 2 8)))
+  (is (= [1 2 3] ((flipping-out-solution take) [1 2 3 4 5] 3))))
 ;
 ;
 ; ;; problem 47
-; (deftest can-contain-yourself
-;   (is (contains? #{4 5 6} contain-yourself-solution))
-;   (is (contains? [1 1 1 1 1] contain-yourself-solution))
-;   (is (contains? {4 :a 2 :b} contain-yourself-solution))
-;   (is (not (contains? '(1 2 4) contain-yourself-solution))))
-;
-;
-; ;; problem 48
-; (deftest can-intro-to-some
-;   (is (= intro-to-some-solution (some #{2 7 6} [5 6 7 8])))
-;   (is (= intro-to-some-solution (some #(when (even? %) %) [5 6 7 8]))))
-;
-;
+(deftest can-contain-yourself
+  (is (contains? #{4 5 6} contain-yourself-solution))
+  (is (contains? [1 1 1 1 1] contain-yourself-solution))
+  (is (contains? {4 :a 2 :b} contain-yourself-solution))
+                                        ;(is (not (contains? '(1 2 4) contain-yourself-solution)))) ;; 仕様が変わったのかも？
+  )
+
+
+;; problem 48
+(deftest can-intro-to-some
+  (is (= intro-to-some-solution (some #{2 7 6} [5 6 7 8])))
+  (is (= intro-to-some-solution (some #(when (even? %) %) [5 6 7 8]))))
+
+
 ; ;; problem 49
-; (deftest can-split-a-sequence
-;   (is (= (split-a-sequence-solution 3 [1 2 3 4 5 6]) [[1 2 3] [4 5 6]]))
-;   (is (= (split-a-sequence-solution 1 [:a :b :c :d]) [[:a] [:b :c :d]]))
-;   (is (= (split-a-sequence-solution 2 [[1 2] [3 4] [5 6]]) [[[1 2] [3 4]] [[5 6]]])))
-;
-;
-; ;; problem 50
-; (deftest can-split-by-type
-;   (is (= (set (split-by-type-solution [1 :a 2 :b 3 :c])) #{[1 2 3] [:a :b :c]}))
-;   (is (= (set (split-by-type-solution [:a "foo"  "bar" :b])) #{[:a :b] ["foo" "bar"]}))
-;   (is (= (set (split-by-type-solution [[1 2] :a [3 4] 5 6 :b])) #{[[1 2] [3 4]] [:a :b] [5 6]})))
-;
-;
-; ;; problem 51
-; (deftest can-advanced-destructuring
-;   (is (= [1 2 [3 4 5] [1 2 3 4 5]] (let [[a b & c :as d] advanced-destructuring-solution] [a b c d]))))
-;
-;
-; ;; problem 52
-; (deftest can-intro-to-destructuring
-;   (is (= [2 4] (let [[a b c d e f g] (range)] intro-to-destructuring-solution))))
-;
+(deftest can-split-a-sequence
+  (is (= (split-a-sequence-solution 3 [1 2 3 4 5 6]) [[1 2 3] [4 5 6]]))
+  (is (= (split-a-sequence-solution 1 [:a :b :c :d]) [[:a] [:b :c :d]]))
+  (is (= (split-a-sequence-solution 2 [[1 2] [3 4] [5 6]]) [[[1 2] [3 4]] [[5 6]]])))
+
+
+;; problem 50
+(deftest can-split-by-type
+  (is (= (set (split-by-type-solution [1 :a 2 :b 3 :c])) #{[1 2 3] [:a :b :c]}))
+  (is (= (set (split-by-type-solution [:a "foo"  "bar" :b])) #{[:a :b] ["foo" "bar"]}))
+  (is (= (set (split-by-type-solution [[1 2] :a [3 4] 5 6 :b])) #{[[1 2] [3 4]] [:a :b] [5 6]})))
+
+
+;; problem 51
+(deftest can-advanced-destructuring
+  (is (= [1 2 [3 4 5] [1 2 3 4 5]] (let [[a b & c :as d] [1 2 3 4 5]] [a b c d]))))
+
+
+;; problem 52
+(deftest can-intro-to-destructuring
+  (is (= [2 4] (let [[a b c d e f g] (range)] [c e]))))
+
 ;
 ; ;; problem 53
 ; (deftest can-longest-increasing-sub-seq

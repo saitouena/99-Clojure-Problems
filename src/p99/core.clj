@@ -413,17 +413,25 @@
 
 ;; problem 43 (Medium)
 (defn reverse-interleave-solution
-  [& args] ;; update args as needed
+  [es n] ;; update args as needed
   ;; Write a function which reverses the interleave process into x number of
   ;; subsequences.
-  nil)
+  (loop [splitted (partition n es)
+         acc nil]
+    (if (empty? (first splitted))
+      (reverse acc)
+      (recur (map rest splitted) (cons (map first splitted) acc)))))
 
 
 ;; problem 44 (Medium)
 (defn rotate-sequence-solution
-  [& args] ;; update args as needed
+  [n es] ;; update args as needed
   ;; Write a function which can rotate a sequence in either direction.
-  nil)
+  (let [s (count es)
+        k (max (quot (- (dec s) n) s) 0) ;; ceil
+        n (+ n (* s k))
+        es (cycle es)]
+    (take s (drop n es))))
 
 
 ;; problem 45 (Easy)
@@ -435,48 +443,60 @@
 
 ;; problem 46 (Medium)
 (defn flipping-out-solution
-  [& args] ;; update args as needed
+  [f] ;; update args as needed
   ;; Write a higher-order function which flips the order of the arguments of an
   ;; input function.
-  nil)
+  (fn [x y]
+    (f y x)))
 
 
 ;; problem 47 (Easy)
-(defn contain-yourself-solution
-  [& args] ;; update args as needed
+(def contain-yourself-solution
   ;; The contains? function checks if a KEY is present in a given collection.
   ;; This often leads beginner clojurians to use it incorrectly with
   ;; numerically indexed collections like vectors and lists.
-  nil)
+  4)
 
 
 ;; problem 48 (Easy)
-(defn intro-to-some-solution
-  [& args] ;; update args as needed
+(def intro-to-some-solution
   ;; The some function takes a predicate function and a collection. It returns
   ;; the first logical true value of (predicate x) where x is an item in the
   ;; collection.
-  nil)
+  6)
 
 
 ;; problem 49 (Easy)
 ;; restrictions: split-at
 (defn split-a-sequence-solution
-  [& args] ;; update args as needed
+  [n es] ;; update args as needed
   ;; Write a function which will split a sequence into two parts.
-  nil)
-
+  (loop [es es
+         c 0
+         acc nil]
+    (if (< c n)
+      (recur (rest es) (inc c) (cons (first es) acc))
+      (seq [(reverse acc) es]))))
 
 ;; problem 50 (Medium)
 (defn split-by-type-solution
-  [& args] ;; update args as needed
+  [es] ;; update args as needed
   ;; Write a function which takes a sequence consisting of items with different
   ;; types and splits them up into a set of homogeneous sub-sequences. The
   ;; internal order of each sub-sequence should be maintained, but the
   ;; sub-sequences themselves can be returned in any order (this is why 'set'
   ;; is used in the test cases).
-  nil)
-
+  (letfn [(build-type-map [es]
+            (loop [es es
+                   mp {}]
+              (if (empty? es)
+                mp
+                (recur (rest es)
+                       (assoc mp (type (first es)) (cons (first es) (mp (type (first es)))))))))]
+    (let [mp (build-type-map es)]
+      (for [k (keys mp)
+            :let [v (mp k)]]
+        (reverse v)))))
 
 ;; problem 51 (Easy)
 (defn advanced-destructuring-solution
