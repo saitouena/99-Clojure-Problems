@@ -357,21 +357,21 @@
 (deftest can-intro-to-destructuring
   (is (= [2 4] (let [[a b c d e f g] (range)] [c e]))))
 
-;
-; ;; problem 53
-; (deftest can-longest-increasing-sub-seq
-;   (is (= (longest-increasing-sub-seq-solution [1 0 1 2 3 0 4 5]) [0 1 2 3]))
-;   (is (= (longest-increasing-sub-seq-solution [5 6 1 3 2 7]) [5 6]))
-;   (is (= (longest-increasing-sub-seq-solution [2 3 3 4 5]) [3 4 5]))
-;   (is (= (longest-increasing-sub-seq-solution [7 6 5 4]) [])))
+
+;; problem 53
+(deftest can-longest-increasing-sub-seq
+  (is (= (longest-increasing-sub-seq-solution [1 0 1 2 3 0 4 5]) [0 1 2 3]))
+  (is (= (longest-increasing-sub-seq-solution [5 6 1 3 2 7]) [5 6]))
+  (is (= (longest-increasing-sub-seq-solution [2 3 3 4 5]) [3 4 5]))
+  (is (= (longest-increasing-sub-seq-solution [7 6 5 4]) [])))
 ;
 ;
 ; ;; problem 54
-; (deftest can-partition-a-sequence
-;   (is (= (partition-a-sequence-solution 3 (range 9)) '((0 1 2) (3 4 5) (6 7 8))))
-;   (is (= (partition-a-sequence-solution 2 (range 8)) '((0 1) (2 3) (4 5) (6 7))))
-;   (is (= (partition-a-sequence-solution 3 (range 8)) '((0 1 2) (3 4 5)))))
-;
+(deftest can-partition-a-sequence
+  (is (= (partition-a-sequence-solution 3 (range 9)) '((0 1 2) (3 4 5) (6 7 8))))
+  (is (= (partition-a-sequence-solution 2 (range 8)) '((0 1) (2 3) (4 5) (6 7))))
+  (is (= (partition-a-sequence-solution 3 (range 8)) '((0 1 2) (3 4 5)))))
+
 ;
 ; ;; problem 55
 ; (deftest can-count-occurrences

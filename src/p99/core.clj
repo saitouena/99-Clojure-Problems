@@ -514,21 +514,45 @@
 
 ;; problem 53 (Hard)
 (defn longest-increasing-sub-seq-solution
-  [& args] ;; update args as needed
+  [ns] ;; update args as needed
   ;; Given a vector of integers, find the longest consecutive sub-sequence of
   ;; increasing numbers. If two sub-sequences have the same length, use the one
   ;; that occurs first. An increasing sub-sequence must have a length of 2 or
   ;; greater to qualify.
-  nil)
+  (loop [prev (first ns)
+         ns (rest ns)
+         ans []
+         acc [prev]]
+    (if (empty? ns)
+      (if (< (count ans) (count acc))
+        (if (< 1 (count acc))
+          (reverse acc)
+          [])
+        (if (< 1 (count ans))
+          (reverse ans)
+          []))
+      (if (< prev (first ns))
+        (recur (first ns) (rest ns) ans (cons (first ns) acc))
+        (recur (first ns)
+               (rest ns)
+               (if (< (count ans) (count acc))
+                 acc
+                 ans)
+               [(first ns)])))))
 
 
 ;; problem 54 (Medium)
 ;; restrictions: partition, partition-all
 (defn partition-a-sequence-solution
-  [& args] ;; update args as needed
+  [n es] ;; update args as needed
   ;; Write a function which returns a sequence of lists of x items each. Lists
   ;; of less than x items should not be returned.
-  nil)
+  (loop [es es
+         acc nil]
+    (if (> n (count es))
+      (reverse acc)
+      (recur (drop n es)
+             (cons (take n es) acc)))))
 
 
 ;; problem 55 (Medium)
