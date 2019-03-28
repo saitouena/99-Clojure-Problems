@@ -631,59 +631,76 @@
 ;; problem 60 (Medium)
 ;; restrictions: reductions
 (defn sequence-reductions-solution
-  [& fs] ;; update args as needed
   ;; Write a function which behaves like reduce, but returns each intermediate
   ;; value of the reduction. Your function must accept either two or three
   ;; arguments, and the return sequence must be lazy.
-  nil)
+  ([f v es] (letfn [(iter [v es]
+                      (if (empty? es)
+                        (lazy-seq [v])
+                        (let [nv (f v (first es))]
+                          (lazy-seq
+                           (cons v (iter nv (rest es)))))))]
+              (iter v es)))
+  ([f es] (sequence-reductions-solution f (first es) (rest es))))
 
-;; problem 61 (Easy)
 ;; restrictions: zipmap
 (defn map-construction-solution
-  [& args] ;; update args as needed
+  [as bs] ;; update args as needed
   ;; Write a function which takes a vector of keys and a vector of values and
   ;; constructs a map from them.
-  nil)
+  (loop [as as
+         bs bs
+         mp {}]
+    (if (or (empty? as) (empty? bs))
+      mp
+      (recur (rest as) (rest bs) (assoc mp (first as) (first bs))))))
 
 
 ;; problem 62 (Easy)
 ;; restrictions: iterate
 (defn re-implement-iterate-solution
-  [& args] ;; update args as needed
+  [f x] ;; update args as needed
   ;; Given a side-effect free function f and an initial value x write a
   ;; function which returns an infinite lazy sequence of x, (f x), (f (f x)),
   ;; (f (f (f x))), etc.
-  nil)
+  (lazy-seq (cons x (re-implement-iterate-solution f (f x)))))
 
 
 ;; problem 63 (Easy)
 ;; restrictions: group-by
 (defn group-a-sequence-solution
-  [& args] ;; update args as needed
+  [f es] ;; update args as needed
   ;; Given a function f and a sequence s, write a function which returns a map.
   ;; The keys should be the values of f applied to each item in s. The value at
   ;; each key should be a vector of corresponding items in the order they
   ;; appear in s.
-  nil)
+  (let [mp
+        (loop [es es
+               mp {}]
+          (if (empty? es)
+            mp
+            (let [k (f (first es))]
+              (recur (rest es) (assoc mp k (conj (mp k) (first es)))))))]
+    (into {} (for [[k v] mp]
+               [k (reverse v)]))))
 
 
 ;; problem 64 (Elementary)
-(defn intro-to-reduce-solution
-  [& args] ;; update args as needed
+(def intro-to-reduce-solution
   ;; Reduce takes a 2 argument function and an optional starting value. It then
   ;; applies the function to the first 2 items in the sequence (or the starting
   ;; value and the first element of the sequence). In the next iteration the
   ;; function will be called on the previous return value and the next item
   ;; from the sequence, thus reducing the entire collection to one value. Don't
   ;; worry, it's not as complicated as it sounds.
-  nil)
+  +)
 
 
 ;; problem 65 (Medium)
 ;; restrictions: class, type, Class, vector?, sequential?, list?, seq?, map?,
 ;;               set?, instance?, getClass
 (defn black-box-testing-solution
-  [& args] ;; update args as needed
+  [seq] ;; update args as needed
   ;; Clojure has many sequence types, which act in subtly different ways. The
   ;; core functions typically convert them into a uniform "sequence" type and
   ;; work with them that way, but it can be important to understand the
@@ -699,61 +716,79 @@
 
 ;; problem 66 (Easy)
 (defn greatest-common-divisor-solution
-  [& args] ;; update args as needed
+  [a b] ;; update args as needed
   ;; Given two integers, write a function which returns the greatest common
   ;; divisor.
-  nil)
+  (loop [a a
+         b b]
+    (if (= b 0)
+      a
+      (recur b (mod a b)))))
 
 
 ;; problem 67 (Medium)
 (defn prime-numbers-solution
-  [& args] ;; update args as needed
+  [c] ;; update args as needed
   ;; Write a function which returns the first x number of prime numbers.
-  nil)
+  (letfn [(prime? [n] (loop [k 2]
+                        (if (< k n)
+                          (if (= 0 (mod n k))
+                            false
+                            (recur (inc k)))
+                          true)))]
+    (take c (filter prime? (iterate inc 2)))))
 
 
 ;; problem 68 (Elementary)
-(defn recurring-theme-solution
-  [& args] ;; update args as needed
+(def recurring-theme-solution
   ;; Clojure only has one non-stack-consuming looping construct: recur. Either
   ;; a function or a loop can be used as the recursion point. Either way, recur
   ;; rebinds the bindings of the recursion point to the values it is passed.
   ;; Recur must be called from the tail-position, and calling it elsewhere will
   ;; result in an error.
-  nil)
-
+  [7 6 5 4 3])
 
 ;; problem 69 (Medium)
 ;; restrictions: merge-with
 (defn merge-with-a-function-solution
-  [& args] ;; update args as needed
+  [f & mps] ;; update args as needed
   ;; Write a function which takes a function f and a variable number of maps.
   ;; Your function should return a map that consists of the rest of the maps
   ;; conj-ed onto the first. If a key occurs in more than one map, the
   ;; mapping(s) from the latter (left-to-right) should be combined with the
   ;; mapping in the result by calling (f val-in-result val-in-latter)
-  nil)
-
+  (letfn [(g [f m1 m2]
+            (into {} (for [k (set (concat (keys m1) (keys m2)))]
+                       (cond (and (m1 k) (m2 k)) [k (f (m1 k) (m2 k))]
+                             (m1 k) [k (m1 k)]
+                             (m2 k) [k (m2 k)]))))]
+    (loop [res (first mps)
+           mps (rest mps)]
+      (if (empty? mps)
+        res
+        (recur (g f res (first mps)) (rest mps))))))
 
 ;; problem 70 (Medium)
+(require '[clojure.string :as str])
 (defn word-sorting-solution
-  [& args] ;; update args as needed
+  [s] ;; update args as needed
   ;; Write a function that splits a sentence up into a sorted list of words.
   ;; Capitalization should not affect sort order and punctuation should be
   ;; ignored.
-  nil)
-
+  (let [words (re-seq #"[A-Za-z]+" s)]
+    (sort-by str/lower-case words)))
+        
 
 ;; problem 71 (Elementary)
 (defn rearranging-code-solution
-  [& args] ;; update args as needed
+  [x] ;; update args as needed
   ;; The -> macro threads an expression x through a variable number of forms.
   ;; First, x is inserted as the second item in the first form, making a list
   ;; of it if it is not a list already. Then the first form is inserted as the
   ;; second item in the second form, making a list of that form if necessary.
   ;; This process continues for all the forms. Using -> can sometimes make your
   ;; code more readable.
-  nil)
+  (last x))
 
 ;; problem 72: nothing here, just breath :)
 

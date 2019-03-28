@@ -415,96 +415,96 @@
   (is (= (last (sequence-reductions-solution * 2 [3 4 5])) (reduce * 2 [3 4 5]) 120)))
 
 
-; ;; problem 61
-; (deftest can-map-construction
-;   (is (= (map-construction-solution [:a :b :c] [1 2 3]) {:a 1, :b 2, :c 3}))
-;   (is (= (map-construction-solution [1 2 3 4] ["one" "two" "three"]) {1 "one", 2 "two", 3 "three"}))
-;   (is (= (map-construction-solution [:foo :bar] ["foo" "bar" "baz"]) {:foo "foo", :bar "bar"})))
-;
-;
-; ;; problem 62
-; (deftest can-re-implement-iterate
-;   (is (= (take 5 (re-implement-iterate-solution #(* 2 %) 1)) [1 2 4 8 16]))
-;   (is (= (take 100 (re-implement-iterate-solution inc 0)) (take 100 (range))))
-;   (is (= (take 9 (re-implement-iterate-solution #(inc (mod % 3)) 1)) (take 9 (cycle [1 2 3])))))
-;
-;
-; ;; problem 63
-; (deftest can-group-a-sequence
-;   (is (= (group-a-sequence-solution #(> % 5) [1 3 6 8]) {false [1 3], true [6 8]}))
-;   (is (= (group-a-sequence-solution #(apply / %) [[1 2] [2 4] [4 6] [3 6]])
-;    {1/2 [[1 2] [2 4] [3 6]], 2/3 [[4 6]]}))
-;   (is (= (group-a-sequence-solution count [[1] [1 2] [3] [1 2 3] [2 3]])
-;    {1 [[1] [3]], 2 [[1 2] [2 3]], 3 [[1 2 3]]})))
-;
-;
-; ;; problem 64
-; (deftest can-intro-to-reduce
-;   (is (= 15 (reduce intro-to-reduce-solution [1 2 3 4 5])))
-;   (is (=  0 (reduce intro-to-reduce-solution [])))
-;   (is (=  6 (reduce intro-to-reduce-solution 1 [2 3]))))
-;
-;
-; ;; problem 65
-; (deftest can-black-box-testing
-;   (is (= :map (black-box-testing-solution {:a 1, :b 2})))
-;   (is (= :list (black-box-testing-solution (range (rand-int 20)))))
-;   (is (= :vector (black-box-testing-solution [1 2 3 4 5 6])))
-;   (is (= :set (black-box-testing-solution #{10 (rand-int 5)})))
-;   (is (= [:map :set :vector :list] (map black-box-testing-solution [{} #{} [] ()]))))
-;
-;
-; ;; problem 66
-; (deftest can-greatest-common-divisor
-;   (is (= (greatest-common-divisor-solution 2 4) 2))
-;   (is (= (greatest-common-divisor-solution 10 5) 5))
-;   (is (= (greatest-common-divisor-solution 5 7) 1))
-;   (is (= (greatest-common-divisor-solution 1023 858) 33)))
-;
-;
-; ;; problem 67
-; (deftest can-prime-numbers
-;   (is (= (prime-numbers-solution 2) [2 3]))
-;   (is (= (prime-numbers-solution 5) [2 3 5 7 11]))
-;   (is (= (last (prime-numbers-solution 100)) 541)))
-;
-;
-; ;; problem 68
-; (deftest can-recurring-theme
-;   (is (= recurring-theme-solution
-;   (loop [x 5
-;          result []]
-;     (if (> x 0)
-;       (recur (dec x) (conj result (+ 2 x)))
-;       result)))))
-;
-;
-; ;; problem 69
-; (deftest can-merge-with-a-function
-;   (is (= (merge-with-a-function-solution * {:a 2, :b 3, :c 4} {:a 2} {:b 2} {:c 5})
-;    {:a 4, :b 6, :c 20}))
-;   (is (= (merge-with-a-function-solution - {1 10, 2 20} {1 3, 2 10, 3 15})
-;    {1 7, 2 10, 3 15}))
-;   (is (= (merge-with-a-function-solution concat {:a [3], :b [6]} {:a [4 5], :c [8 9]} {:b [7]})
-;    {:a [3 4 5], :b [6 7], :c [8 9]})))
-;
-;
-; ;; problem 70
-; (deftest can-word-sorting
-;   (is (= (word-sorting-solution  "Have a nice day.")
-;    ["a" "day" "Have" "nice"]))
-;   (is (= (word-sorting-solution  "Clojure is a fun language!")
-;    ["a" "Clojure" "fun" "is" "language"]))
-;   (is (= (word-sorting-solution  "Fools fall for foolish follies.")
-;    ["fall" "follies" "foolish" "Fools" "for"])))
-;
+;; problem 61
+(deftest can-map-construction
+  (is (= (map-construction-solution [:a :b :c] [1 2 3]) {:a 1, :b 2, :c 3}))
+  (is (= (map-construction-solution [1 2 3 4] ["one" "two" "three"]) {1 "one", 2 "two", 3 "three"}))
+  (is (= (map-construction-solution [:foo :bar] ["foo" "bar" "baz"]) {:foo "foo", :bar "bar"})))
+
+
+;; problem 62
+(deftest can-re-implement-iterate
+  (is (= (take 5 (re-implement-iterate-solution #(* 2 %) 1)) [1 2 4 8 16]))
+  (is (= (take 100 (re-implement-iterate-solution inc 0)) (take 100 (range))))
+  (is (= (take 9 (re-implement-iterate-solution #(inc (mod % 3)) 1)) (take 9 (cycle [1 2 3])))))
+
+
+;; problem 63
+(deftest can-group-a-sequence
+  (is (= (group-a-sequence-solution #(> % 5) [1 3 6 8]) {false [1 3], true [6 8]}))
+  (is (= (group-a-sequence-solution #(apply / %) [[1 2] [2 4] [4 6] [3 6]])
+   {1/2 [[1 2] [2 4] [3 6]], 2/3 [[4 6]]}))
+  (is (= (group-a-sequence-solution count [[1] [1 2] [3] [1 2 3] [2 3]])
+   {1 [[1] [3]], 2 [[1 2] [2 3]], 3 [[1 2 3]]})))
+
+
+;; problem 64
+(deftest can-intro-to-reduce
+  (is (= 15 (reduce intro-to-reduce-solution [1 2 3 4 5])))
+  (is (=  0 (reduce intro-to-reduce-solution [])))
+  (is (=  6 (reduce intro-to-reduce-solution 1 [2 3]))))
+
+
+;; problem 65
+(deftest can-black-box-testing
+  (is (= :map (black-box-testing-solution {:a 1, :b 2})))
+  (is (= :list (black-box-testing-solution (range (rand-int 20)))))
+  (is (= :vector (black-box-testing-solution [1 2 3 4 5 6])))
+  (is (= :set (black-box-testing-solution #{10 (rand-int 5)})))
+  (is (= [:map :set :vector :list] (map black-box-testing-solution [{} #{} [] ()]))))
+
+
+;; problem 66
+(deftest can-greatest-common-divisor
+  (is (= (greatest-common-divisor-solution 2 4) 2))
+  (is (= (greatest-common-divisor-solution 10 5) 5))
+  (is (= (greatest-common-divisor-solution 5 7) 1))
+  (is (= (greatest-common-divisor-solution 1023 858) 33)))
+
+
+;; problem 67
+(deftest can-prime-numbers
+  (is (= (prime-numbers-solution 2) [2 3]))
+  (is (= (prime-numbers-solution 5) [2 3 5 7 11]))
+  (is (= (last (prime-numbers-solution 100)) 541)))
+
+
+;; problem 68
+(deftest can-recurring-theme
+  (is (= recurring-theme-solution
+  (loop [x 5
+         result []]
+    (if (> x 0)
+      (recur (dec x) (conj result (+ 2 x)))
+      result)))))
+
+
+;; problem 69
+(deftest can-merge-with-a-function
+  (is (= (merge-with-a-function-solution * {:a 2, :b 3, :c 4} {:a 2} {:b 2} {:c 5})
+   {:a 4, :b 6, :c 20}))
+  (is (= (merge-with-a-function-solution - {1 10, 2 20} {1 3, 2 10, 3 15})
+   {1 7, 2 10, 3 15}))
+  (is (= (merge-with-a-function-solution concat {:a [3], :b [6]} {:a [4 5], :c [8 9]} {:b [7]})
+   {:a [3 4 5], :b [6 7], :c [8 9]})))
+
+
+;; problem 70
+(deftest can-word-sorting
+  (is (= (word-sorting-solution  "Have a nice day.")
+   ["a" "day" "Have" "nice"]))
+  (is (= (word-sorting-solution  "Clojure is a fun language!")
+   ["a" "Clojure" "fun" "is" "language"]))
+  (is (= (word-sorting-solution  "Fools fall for foolish follies.")
+   ["fall" "follies" "foolish" "Fools" "for"])))
+
 ;
 ; ;; problem 71
-; (deftest can-rearranging-code
-;   (is (= (rearranging-code-solution (sort (rest (reverse [2 5 4 1 3 6]))))
-;    (-> [2 5 4 1 3 6] (reverse) (rest) (sort) (rearranging-code-solution))
-;    5)))
-;
+(deftest can-rearranging-code
+  (is (= (rearranging-code-solution (sort (rest (reverse [2 5 4 1 3 6]))))
+         (-> [2 5 4 1 3 6] (reverse) (rest) (sort) (rearranging-code-solution))
+         5)))
+
 ;
 ; ;; problem 73
 ; (deftest can-analyze-a-tic-tac-toe-board
