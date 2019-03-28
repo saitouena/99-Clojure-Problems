@@ -558,24 +558,38 @@
 ;; problem 55 (Medium)
 ;; restrictions: frequencies
 (defn count-occurrences-solution
-  [& args] ;; update args as needed
+  [es] ;; update args as needed
   ;; Write a function which returns a map containing the number of occurences
   ;; of each distinct item in a sequence.
-  nil)
+  (loop [mp {}
+         es es]
+    (if (empty? es)
+      mp
+      (let [e (first es)]
+        (if (contains? mp e)
+          (recur (assoc mp e (inc (mp e))) (rest es))
+          (recur (assoc mp e 1) (rest es)))))))
 
 
 ;; problem 56 (Medium)
 ;; restrictions: distinct
 (defn find-distinct-items-solution
-  [& args] ;; update args as needed
+  [es] ;; update args as needed
   ;; Write a function which removes the duplicates from a sequence. Order of
   ;; the items must be maintained.
-  nil)
+  (loop [es es
+         st #{}
+         acc nil]
+    (if (empty? es)
+      (reverse acc)
+      (if (contains? st (first es))
+        (recur (rest es) st acc)
+        (recur (rest es) (conj st (first es)) (cons (first es) acc))))))
+      
 
 
 ;; problem 57 (Elementary)
-(defn simple-recursion-solution
-  [& args] ;; update args as needed
+(def simple-recursion-solution
   ;; A recursive function is a function which calls itself. This is one of the
   ;; fundamental techniques used in functional programming.
   nil)
@@ -584,32 +598,44 @@
 ;; problem 58 (Medium)
 ;; restrictions: comp
 (defn function-composition-solution
-  [& args] ;; update args as needed
+  [& fs] ;; update args as needed
   ;; Write a function which allows you to create function compositions. The
   ;; parameter list should take a variable number of functions, and create a
   ;; function applies them from right-to-left.
-  nil)
+  (letfn [(comp1 [& fs]
+            (loop [fs (reverse fs)
+                   f (fn [x] x)]
+              (if (empty? fs)
+                f
+                (recur (rest fs) (fn [x] ((first fs) (f x)))))))]
+    (let [fL (last fs)
+          fs (butlast fs)]
+      (fn [& args] ((apply comp1 fs) (apply fL args))))))
 
 
 ;; problem 59 (Medium)
 ;; restrictions: juxt
 (defn juxtaposition-solution
-  [& args] ;; update args as needed
+  [& fs] ;; update args as needed
   ;; Take a set of functions and return a new function that takes a variable
   ;; number of arguments and returns a sequence containing the result of
   ;; applying each function left-to-right to the argument list.
-  nil)
+  (fn [& args]
+    (loop [fs fs
+           acc nil]
+      (if (empty? fs)
+        (reverse acc)
+        (recur (rest fs) (cons (apply (first fs) args) acc))))))
 
 
 ;; problem 60 (Medium)
 ;; restrictions: reductions
 (defn sequence-reductions-solution
-  [& args] ;; update args as needed
+  [& fs] ;; update args as needed
   ;; Write a function which behaves like reduce, but returns each intermediate
   ;; value of the reduction. Your function must accept either two or three
   ;; arguments, and the return sequence must be lazy.
   nil)
-
 
 ;; problem 61 (Easy)
 ;; restrictions: zipmap

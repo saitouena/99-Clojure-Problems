@@ -372,49 +372,49 @@
   (is (= (partition-a-sequence-solution 2 (range 8)) '((0 1) (2 3) (4 5) (6 7))))
   (is (= (partition-a-sequence-solution 3 (range 8)) '((0 1 2) (3 4 5)))))
 
-;
-; ;; problem 55
-; (deftest can-count-occurrences
-;   (is (= (count-occurrences-solution [1 1 2 3 2 1 1]) {1 4, 2 2, 3 1}))
-;   (is (= (count-occurrences-solution [:b :a :b :a :b]) {:a 2, :b 3}))
-;   (is (= (count-occurrences-solution '([1 2] [1 3] [1 3])) {[1 2] 1, [1 3] 2})))
-;
-;
-; ;; problem 56
-; (deftest can-find-distinct-items
-;   (is (= (find-distinct-items-solution [1 2 1 3 1 2 4]) [1 2 3 4]))
-;   (is (= (find-distinct-items-solution [:a :a :b :b :c :c]) [:a :b :c]))
-;   (is (= (find-distinct-items-solution '([2 4] [1 2] [1 3] [1 3])) '([2 4] [1 2] [1 3])))
-;   (is (= (find-distinct-items-solution (range 50)) (range 50))))
+
+;; problem 55
+(deftest can-count-occurrences
+  (is (= (count-occurrences-solution [1 1 2 3 2 1 1]) {1 4, 2 2, 3 1}))
+  (is (= (count-occurrences-solution [:b :a :b :a :b]) {:a 2, :b 3}))
+  (is (= (count-occurrences-solution '([1 2] [1 3] [1 3])) {[1 2] 1, [1 3] 2})))
 ;
 ;
-; ;; problem 57
-; (deftest can-simple-recursion
-;   (is (= simple-recursion-solution ((fn foo [x] (when (> x 0) (conj (foo (dec x)) x))) 5))))
+;; problem 56
+(deftest can-find-distinct-items
+  (is (= (find-distinct-items-solution [1 2 1 3 1 2 4]) [1 2 3 4]))
+  (is (= (find-distinct-items-solution [:a :a :b :b :c :c]) [:a :b :c]))
+  (is (= (find-distinct-items-solution '([2 4] [1 2] [1 3] [1 3])) '([2 4] [1 2] [1 3])))
+  (is (= (find-distinct-items-solution (range 50)) (range 50))))
+
 ;
-;
-; ;; problem 58
-; (deftest can-function-composition
-;   (is (= [3 2 1] ((function-composition-solution rest reverse) [1 2 3 4])))
-;   (is (= 5 ((function-composition-solution (partial + 3) second) [1 2 3 4])))
-;   (is (= true ((function-composition-solution zero? #(mod % 8) +) 3 5 7 9)))
-;   (is (= "HELLO" ((function-composition-solution #(.toUpperCase %) #(apply str %) take) 5 "hello world"))))
-;
-;
-; ;; problem 59
-; (deftest can-juxtaposition
-;   (is (= [21 6 1] ((juxtaposition-solution + max min) 2 3 5 1 6 4)))
-;   (is (= ["HELLO" 5] ((juxtaposition-solution #(.toUpperCase %) count) "hello")))
-;   (is (= [2 6 4] ((juxtaposition-solution :a :c :b) {:a 2, :b 4, :c 6, :d 8 :e 10}))))
-;
-;
-; ;; problem 60
-; (deftest can-sequence-reductions
-;   (is (= (take 5 (sequence-reductions-solution + (range))) [0 1 3 6 10]))
-;   (is (= (sequence-reductions-solution conj [1] [2 3 4]) [[1] [1 2] [1 2 3] [1 2 3 4]]))
-;   (is (= (last (sequence-reductions-solution * 2 [3 4 5])) (reduce * 2 [3 4 5]) 120)))
-;
-;
+;; problem 57
+(deftest can-simple-recursion
+  (is (= '(5 4 3 2 1) ((fn foo [x] (when (> x 0) (conj (foo (dec x)) x))) 5))))
+
+
+;; problem 58
+(deftest can-function-composition
+  (is (= [3 2 1] ((function-composition-solution rest reverse) [1 2 3 4])))
+  (is (= 5 ((function-composition-solution (partial + 3) second) [1 2 3 4])))
+  (is (= true ((function-composition-solution zero? #(mod % 8) +) 3 5 7 9)))
+  (is (= "HELLO" ((function-composition-solution #(.toUpperCase %) #(apply str %) take) 5 "hello world"))))
+
+
+;; problem 59
+(deftest can-juxtaposition
+  (is (= [21 6 1] ((juxtaposition-solution + max min) 2 3 5 1 6 4)))
+  (is (= ["HELLO" 5] ((juxtaposition-solution #(.toUpperCase %) count) "hello")))
+  (is (= [2 6 4] ((juxtaposition-solution :a :c :b) {:a 2, :b 4, :c 6, :d 8 :e 10}))))
+
+
+;; problem 60
+(deftest can-sequence-reductions
+  (is (= (take 5 (sequence-reductions-solution + (range))) [0 1 3 6 10]))
+  (is (= (sequence-reductions-solution conj [1] [2 3 4]) [[1] [1 2] [1 2 3] [1 2 3 4]]))
+  (is (= (last (sequence-reductions-solution * 2 [3 4 5])) (reduce * 2 [3 4 5]) 120)))
+
+
 ; ;; problem 61
 ; (deftest can-map-construction
 ;   (is (= (map-construction-solution [:a :b :c] [1 2 3]) {:a 1, :b 2, :c 3}))
