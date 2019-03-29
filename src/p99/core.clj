@@ -794,38 +794,65 @@
 
 ;; problem 73 (Hard)
 (defn analyze-a-tic-tac-toe-board-solution
-  [& args] ;; update args as needed
+  [board] ;; update args as needed
   ;; A tic-tac-toe board is represented by a two dimensional vector. X is
   ;; represented by :x, O is represented by :o, and empty is represented by :e.
   ;; A player wins by placing three Xs or three Os in a horizontal, vertical,
   ;; or diagonal row. Write a function which analyzes a tic-tac-toe board and
   ;; returns :x if X has won, :o if O has won, and nil if neither player has
   ;; won.
-  nil)
+  (letfn [(third [coll] (nth coll 2))
+          (check [board s] (or (check-row board s) (check-col board s) (check-diag board s)))
+          (check-row [board s] (some #(= [s s s] %) board))
+          (check-col [board s] (let [col1 (map first board)
+                                     col2 (map second board)
+                                     col3 (map third board)]
+                                 (some #(= [s s s] %) [col1 col2 col3])))
+          (check-diag [board s] (let [diag1 [(first (first board))
+                                             (second (second board))
+                                             (third (third board))]
+                                      diag2 [(first (third board))
+                                             (second (second board))
+                                             (third (first board))]]
+                                  (some #(= [s s s] %) [diag1 diag2])))]
+    (cond (check board :o) :o
+          (check board :x) :x
+          :else nil)))
 
 
 ;; problem 74 (Medium)
 (defn filter-perfect-squares-solution
-  [& args] ;; update args as needed
+  [s] ;; update args as needed
   ;; Given a string of comma separated integers, write a function which returns
   ;; a new comma separated string that only contains the numbers which are
   ;; perfect squares.
-  nil)
+  (let [ns (map read-string (re-seq #"\d+" s))]
+    (letfn [(perfect? [n]
+              (loop [k 1]
+                (cond (< n (* k k)) false
+                      (= n (* k k)) true
+                      :else (recur (inc k)))))]
+      (reduce (fn [a b] (str a "," b)) (filter perfect? ns)))))
 
 
 ;; problem 75 (Medium)
 (defn euler-s-totient-function-solution
-  [& args] ;; update args as needed
+  [x] ;; update args as needed
   ;; Two numbers are coprime if their greatest common divisor equals 1. Euler's
   ;; totient function f(x) is defined as the number of positive integers less
   ;; than x which are coprime to x. The special case f(1) equals 1. Write a
   ;; function which calculates Euler's totient function.
-  nil)
+  (letfn [(gcd [a b]
+            (loop [a a
+                   b b]
+              (if (= b 0)
+                a
+                (recur b (mod a b)))))]
+    (count (filter #(= (gcd % x) 1) (range 0 x)))))
 
 
 ;; problem 76 (Medium)
-(defn intro-to-trampoline-solution
-  [& args] ;; update args as needed
+(def intro-to-trampoline-solution
   ;; The trampoline function takes a function f and a variable number of
   ;; parameters. Trampoline calls f with any parameters that were supplied. If
   ;; f returns a function, trampoline calls that function with no arguments.
@@ -833,46 +860,70 @@
   ;; trampoline returns that non-function value. This is useful for
   ;; implementing mutually recursive algorithms in a way that won't consume the
   ;; stack.
-  nil)
+  [1 3 5 7 9 11])
 
 
 ;; problem 77 (Medium)
 (defn anagram-finder-solution
-  [& args] ;; update args as needed
+  [words] ;; update args as needed
   ;; Write a function which finds all the anagrams in a vector of words. A word
   ;; x is an anagram of word y if all the letters in x can be rearranged in a
   ;; different order to form y. Your function should return a set of sets,
   ;; where each sub-set is a group of words which are anagrams of each other.
   ;; Each sub-set should have at least two words. Words without any anagrams
   ;; should not be included in the result.
-  nil)
+  (->> words
+      (group-by #(apply str (sort %))) ;; kv
+      (vals)
+      (filter #(> (count %) 1))
+      (map set)
+      set))
 
 
 ;; problem 78 (Medium)
 ;; restrictions: trampoline
+;;(def reimplement-trampoline-solution nil)
 (defn reimplement-trampoline-solution
-  [& args] ;; update args as needed
+  [f & args] ;; update args as needed
   ;; Reimplement the function described in "Intro to Trampoline".
-  nil)
+  (let [res (apply f args)]
+    (loop [res res]
+      (if (fn? res)
+        (recur (res))
+        res))))
 
 
-;; problem 79 (Hard)
+;; ;; problem 79 (Hard)
+
 (defn triangle-minimal-path-solution
-  [& args] ;; update args as needed
+  [triangle] ;; update args as needed
   ;; Write a function which calculates the sum of the minimal path through a
   ;; triangle. The triangle is represented as a collection of vectors. The path
   ;; should start at the top of the triangle and move to an adjacent number on
   ;; the next row until the bottom of the triangle is reached.
   nil)
-
+;;   (letfn [(next-solution [ans next]
+;;             (loop [ret [(+ (first ans) (first next))]
+;;                    res (rest next)
+;;                    p (first ans)
+;;                    c (second ans)
+;;                    x (first
+;;             )]
+;;     (loop [ans (first triangle)
+;;            res (rest trinangle)]
+;;       (if (empty? res)
+;;         ans
+;;         (recur (next-solution ans (first res)) (rest res))))))
 
 ;; problem 80 (Medium)
 (defn perfect-numbers-solution
-  [& args] ;; update args as needed
+  [n] ;; update args as needed
   ;; A number is "perfect" if the sum of its divisors equal the number itself.
   ;; 6 is a perfect number because 1+2+3=6. Write a function which returns true
   ;; for perfect numbers and false otherwise.
-  nil)
+  (letfn [(divisors [n]
+            (filter #(= (mod n %) 0) (range 1 n)))]
+    (= n (reduce + (divisors n)))))
 
 
 ;; problem 81 (Easy)

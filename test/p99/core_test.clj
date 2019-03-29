@@ -505,100 +505,100 @@
          (-> [2 5 4 1 3 6] (reverse) (rest) (sort) (rearranging-code-solution))
          5)))
 
-;
-; ;; problem 73
-; (deftest can-analyze-a-tic-tac-toe-board
-;   (is (= nil (analyze-a-tic-tac-toe-board-solution [[:e :e :e]
-;             [:e :e :e]
-;             [:e :e :e]])))
-;   (is (= :x (analyze-a-tic-tac-toe-board-solution [[:x :e :o]
-;            [:x :e :e]
-;            [:x :e :o]])))
-;   (is (= :o (analyze-a-tic-tac-toe-board-solution [[:e :x :e]
-;            [:o :o :o]
-;            [:x :e :x]])))
-;   (is (= nil (analyze-a-tic-tac-toe-board-solution [[:x :e :o]
-;             [:x :x :e]
-;             [:o :x :o]])))
-;   (is (= :x (analyze-a-tic-tac-toe-board-solution [[:x :e :e]
-;            [:o :x :e]
-;            [:o :e :x]])))
-;   (is (= :o (analyze-a-tic-tac-toe-board-solution [[:x :e :o]
-;            [:x :o :e]
-;            [:o :e :x]])))
-;   (is (= nil (analyze-a-tic-tac-toe-board-solution [[:x :o :x]
-;             [:x :o :x]
-;             [:o :x :o]]))))
-;
-;
-; ;; problem 74
-; (deftest can-filter-perfect-squares
-;   (is (= (filter-perfect-squares-solution "4,5,6,7,8,9") "4,9"))
-;   (is (= (filter-perfect-squares-solution "15,16,25,36,37") "16,25,36")))
-;
-;
-; ;; problem 75
-; (deftest can-euler-s-totient-function
-;   (is (= (euler-s-totient-function-solution 1) 1))
-;   (is (= (euler-s-totient-function-solution 10) (count '(1 3 7 9)) 4))
-;   (is (= (euler-s-totient-function-solution 40) 16))
-;   (is (= (euler-s-totient-function-solution 99) 60)))
-;
-;
-; ;; problem 76
-; (deftest can-intro-to-trampoline
-;   (is (= intro-to-trampoline-solution
-;    (letfn
-;      [(foo [x y] #(bar (conj x y) y))
-;       (bar [x y] (if (> (last x) 10)
-;                    x
-;                    #(foo x (+ 2 y))))]
-;      (trampoline foo [] 1)))))
-;
-;
-; ;; problem 77
-; (deftest can-anagram-finder
-;   (is (= (anagram-finder-solution ["meat" "mat" "team" "mate" "eat"])
-;    #{#{"meat" "team" "mate"}}))
-;   (is (= (anagram-finder-solution ["veer" "lake" "item" "kale" "mite" "ever"])
-;    #{#{"veer" "ever"} #{"lake" "kale"} #{"mite" "item"}})))
-;
-;
-; ;; problem 78
-; (deftest can-reimplement-trampoline
-;   (is (= (letfn [(triple [x] #(sub-two (* 3 x)))
-;           (sub-two [x] #(stop?(- x 2)))
-;           (stop? [x] (if (> x 50) x #(triple x)))]
-;     (reimplement-trampoline-solution triple 2))
-;   82))
-;   (is (= (letfn [(my-even? [x] (if (zero? x) true #(my-odd? (dec x))))
-;           (my-odd? [x] (if (zero? x) false #(my-even? (dec x))))]
-;     (map (partial reimplement-trampoline-solution my-even?) (range 6)))
-;   [true false true false true false])))
-;
-;
-; ;; problem 79
-; (deftest can-triangle-minimal-path
-;   (is (= 7 (triangle-minimal-path-solution '([1]
-;           [2 4]
-;          [5 1 4]
-;         [2 3 4 5]))) ; 1->2->1->3)
-;   (is (= 20 (triangle-minimal-path-solution '([3]
-;            [2 4]
-;           [1 9 3]
-;          [9 9 2 4]
-;         [4 6 6 7 8]
-;        [5 7 3 5 1 4]))) ; 3->4->3->2->7->1))
-;
-;
-; ;; problem 80
-; (deftest can-perfect-numbers
-;   (is (= (perfect-numbers-solution 6) true))
-;   (is (= (perfect-numbers-solution 7) false))
-;   (is (= (perfect-numbers-solution 496) true))
-;   (is (= (perfect-numbers-solution 500) false))
-;   (is (= (perfect-numbers-solution 8128) true)))
-;
+
+;; problem 73
+(deftest can-analyze-a-tic-tac-toe-board
+  (is (= nil (analyze-a-tic-tac-toe-board-solution [[:e :e :e]
+                                                    [:e :e :e]
+                                                    [:e :e :e]])))
+  (is (= :x (analyze-a-tic-tac-toe-board-solution [[:x :e :o]
+                                                   [:x :e :e]
+                                                   [:x :e :o]])))
+  (is (= :o (analyze-a-tic-tac-toe-board-solution [[:e :x :e]
+                                                   [:o :o :o]
+                                                   [:x :e :x]])))
+  (is (= nil (analyze-a-tic-tac-toe-board-solution [[:x :e :o]
+                                                    [:x :x :e]
+                                                    [:o :x :o]])))
+  (is (= :x (analyze-a-tic-tac-toe-board-solution [[:x :e :e]
+                                                   [:o :x :e]
+                                                   [:o :e :x]])))
+  (is (= :o (analyze-a-tic-tac-toe-board-solution [[:x :e :o]
+                                                   [:x :o :e]
+                                                   [:o :e :x]])))
+  (is (= nil (analyze-a-tic-tac-toe-board-solution [[:x :o :x]
+                                                    [:x :o :x]
+                                                    [:o :x :o]]))))
+
+
+;; problem 74
+(deftest can-filter-perfect-squares
+  (is (= (filter-perfect-squares-solution "4,5,6,7,8,9") "4,9"))
+  (is (= (filter-perfect-squares-solution "15,16,25,36,37") "16,25,36")))
+
+
+;; problem 75
+(deftest can-euler-s-totient-function
+  (is (= (euler-s-totient-function-solution 1) 1))
+  (is (= (euler-s-totient-function-solution 10) (count '(1 3 7 9)) 4))
+  (is (= (euler-s-totient-function-solution 40) 16))
+  (is (= (euler-s-totient-function-solution 99) 60)))
+
+
+;; problem 76
+(deftest can-intro-to-trampoline
+  (is (= intro-to-trampoline-solution
+   (letfn
+     [(foo [x y] #(bar (conj x y) y))
+      (bar [x y] (if (> (last x) 10)
+                   x
+                   #(foo x (+ 2 y))))]
+     (trampoline foo [] 1)))))
+
+
+;; problem 77
+(deftest can-anagram-finder
+  (is (= (anagram-finder-solution ["meat" "mat" "team" "mate" "eat"])
+   #{#{"meat" "team" "mate"}}))
+  (is (= (anagram-finder-solution ["veer" "lake" "item" "kale" "mite" "ever"])
+   #{#{"veer" "ever"} #{"lake" "kale"} #{"mite" "item"}})))
+
+
+;; problem 78
+(deftest can-reimplement-trampoline
+  (is (= (letfn [(triple [x] #(sub-two (* 3 x)))
+          (sub-two [x] #(stop?(- x 2)))
+          (stop? [x] (if (> x 50) x #(triple x)))]
+    (reimplement-trampoline-solution triple 2))
+  82))
+  (is (= (letfn [(my-even? [x] (if (zero? x) true #(my-odd? (dec x))))
+          (my-odd? [x] (if (zero? x) false #(my-even? (dec x))))]
+    (map (partial reimplement-trampoline-solution my-even?) (range 6)))
+  [true false true false true false])))
+
+
+;; problem 79
+(deftest can-triangle-minimal-path
+  (is (= 7 (triangle-minimal-path-solution '([1]
+                                             [2 4]
+                                             [5 1 4]
+                                             [2 3 4 5])))) ; 1->2->1->3
+  (is (= 20 (triangle-minimal-path-solution '([3]
+                                              [2 4]
+                                              [1 9 3]
+                                              [9 9 2 4]
+                                              [4 6 6 7 8]
+                                              [5 7 3 5 1 4]))))) ; 3->4->3->2->7->1
+
+
+;; problem 80
+(deftest can-perfect-numbers
+  (is (= (perfect-numbers-solution 6) true))
+  (is (= (perfect-numbers-solution 7) false))
+  (is (= (perfect-numbers-solution 496) true))
+  (is (= (perfect-numbers-solution 500) false))
+  (is (= (perfect-numbers-solution 8128) true)))
+
 ;
 ; ;; problem 81
 ; (deftest can-set-intersection
