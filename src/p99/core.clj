@@ -901,19 +901,21 @@
   ;; triangle. The triangle is represented as a collection of vectors. The path
   ;; should start at the top of the triangle and move to an adjacent number on
   ;; the next row until the bottom of the triangle is reached.
-  nil)
-;;   (letfn [(next-solution [ans next]
-;;             (loop [ret [(+ (first ans) (first next))]
-;;                    res (rest next)
-;;                    p (first ans)
-;;                    c (second ans)
-;;                    x (first
-;;             )]
-;;     (loop [ans (first triangle)
-;;            res (rest trinangle)]
-;;       (if (empty? res)
-;;         ans
-;;         (recur (next-solution ans (first res)) (rest res))))))
+  (letfn [(next-solution [prev-ans next-row]
+            (let [n (count next-row)]
+              (letfn [(ok? [i]
+                        (and (<= 0 i) (< i (dec n))))]
+                (for [i (range n)]
+                  (cond (and (ok? i) (ok? (dec i)))
+                        (+ (nth next-row i) (min (nth prev-ans i)
+                                                 (nth prev-ans (dec i))))
+                        (ok? i) (+ (nth next-row i) (nth prev-ans i))
+                        (ok? (dec i)) (+ (nth next-row i) (nth prev-ans (dec i))))))))]
+    (loop [ans (first triangle)
+           res (rest triangle)]
+      (if (empty? res)
+        (apply min ans)
+        (recur (next-solution ans (first res)) (rest res))))))
 
 ;; problem 80 (Medium)
 (defn perfect-numbers-solution
@@ -929,26 +931,34 @@
 ;; problem 81 (Easy)
 ;; restrictions: intersection
 (defn set-intersection-solution
-  [& args] ;; update args as needed
+  [s0 s1] ;; update args as needed
   ;; Write a function which returns the intersection of two sets. The
   ;; intersection is the sub-set of items that each set has in common.
-  nil)
+  (loop [s0 (seq s0)
+         acc #{}]
+    (if (empty? s0)
+      acc
+      (recur (rest s0) (if (contains? s1 (first s0))
+                         (conj acc (first s0))
+                         acc)))))
 
 
 ;; problem 82 (Hard)
-(defn word-chains-solution
-  [& args] ;; update args as needed
-  ;; A word chain consists of a set of words ordered so that each word differs
-  ;; by only one letter from the words directly before and after it. The one
-  ;; letter difference can be either an insertion, a deletion, or a
-  ;; substitution. Here is an example word chain:
-  ;;
-  ;; cat -> cot -> coat -> oat -> hat -> hot -> hog -> dog
-  ;;
-  ;; Write a function which takes a sequence of words, and returns true if they
-  ;; can be arranged into one continous word chain, and false if they cannot.
-  nil)
-
+;; (defn word-chains-solution
+;;   [& args] ;; update args as needed
+;;   ;; A word chain consists of a set of words ordered so that each word differs
+;;   ;; by only one letter from the words directly before and after it. The one
+;;   ;; letter difference can be either an insertion, a deletion, or a
+;;   ;; substitution. Here is an example word chain:
+;;   ;;
+;;   ;; cat -> cot -> coat -> oat -> hat -> hot -> hog -> dog
+;;   ;;
+;;   ;; Write a function which takes a sequence of words, and returns true if they
+;;   ;; can be arranged into one continous word chain, and false if they cannot.
+;;   (letfn [(dfs [c rest visited]
+;;             (if (empty? rest)
+;;               true
+              
 
 ;; problem 83 (Easy)
 (defn a-half-truth-solution
@@ -956,24 +966,39 @@
   ;; Write a function which takes a variable number of booleans. Your function
   ;; should return true if some of the parameters are true, but not all of the
   ;; parameters are true. Otherwise your function should return false.
-  nil)
+  (letfn [(not-nil? [x] (not (nil? x)))]
+    (and (not-nil? (some true? args)) (not-nil? (some false? args)))))
 
 
 ;; problem 84 (Hard)
 (defn transitive-closure-solution
-  [& args] ;; update args as needed
+  [rels] ;; update args as needed
   ;; Write a function which generates the transitive closure of a binary
   ;; relation. The relation will be represented as a set of 2 item vectors.
-  nil)
+  (letfn [(next [rels]
+            (set (concat rels (for [r1 (seq rels)
+                                    r2 (seq rels)
+                                    :when (= (second r1) (first r2))]
+                                [(first r1) (second r2)]))))]
+    (loop [rels rels]
+      (let [new-rels (next rels)]
+        (if (= (count rels) (count new-rels))
+          rels
+          (recur new-rels))))))
 
 
 ;; problem 85 (Medium)
 (defn power-set-solution
-  [& args] ;; update args as needed
+  [st] ;; update args as needed
   ;; Write a function which generates the power set of a given set. The power
   ;; set of a set x is the set of all subsets of x, including the empty set and
   ;; x itself.
-  nil)
+  (letfn [(power-set [es acc]
+            (if (empty? es)
+              (lazy-seq [acc])
+              (lazy-seq (concat (power-set (rest es) (conj acc (first es)))
+                                (power-set (rest es) acc)))))]
+    (set (power-set (seq st) #{}))))
 
 
 ;; problem 86 (Medium)

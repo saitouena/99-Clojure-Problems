@@ -446,12 +446,12 @@
 
 
 ;; problem 65
-(deftest can-black-box-testing
-  (is (= :map (black-box-testing-solution {:a 1, :b 2})))
-  (is (= :list (black-box-testing-solution (range (rand-int 20)))))
-  (is (= :vector (black-box-testing-solution [1 2 3 4 5 6])))
-  (is (= :set (black-box-testing-solution #{10 (rand-int 5)})))
-  (is (= [:map :set :vector :list] (map black-box-testing-solution [{} #{} [] ()]))))
+;; (deftest can-black-box-testing
+;;   (is (= :map (black-box-testing-solution {:a 1, :b 2})))
+;;   (is (= :list (black-box-testing-solution (range (rand-int 20)))))
+;;   (is (= :vector (black-box-testing-solution [1 2 3 4 5 6])))
+;;   (is (= :set (black-box-testing-solution #{10 (rand-int 5)})))
+;;   (is (= [:map :set :vector :list] (map black-box-testing-solution [{} #{} [] ()]))))
 
 
 ;; problem 66
@@ -599,58 +599,58 @@
   (is (= (perfect-numbers-solution 500) false))
   (is (= (perfect-numbers-solution 8128) true)))
 
-;
-; ;; problem 81
-; (deftest can-set-intersection
-;   (is (= (set-intersection-solution #{0 1 2 3} #{2 3 4 5}) #{2 3}))
-;   (is (= (set-intersection-solution #{0 1 2} #{3 4 5}) #{}))
-;   (is (= (set-intersection-solution #{:a :b :c :d} #{:c :e :a :f :d}) #{:a :c :d})))
-;
-;
-; ;; problem 82
-; (deftest can-word-chains
-;   (is (= true (word-chains-solution #{"hat" "coat" "dog" "cat" "oat" "cot" "hot" "hog"})))
-;   (is (= false (word-chains-solution #{"cot" "hot" "bat" "fat"})))
-;   (is (= false (word-chains-solution #{"to" "top" "stop" "tops" "toss"})))
-;   (is (= true (word-chains-solution #{"spout" "do" "pot" "pout" "spot" "dot"})))
-;   (is (= true (word-chains-solution #{"share" "hares" "shares" "hare" "are"})))
-;   (is (= false (word-chains-solution #{"share" "hares" "hare" "are"}))))
-;
-;
-; ;; problem 83
-; (deftest can-a-half-truth
-;   (is (= false (a-half-truth-solution false false)))
-;   (is (= true (a-half-truth-solution true false)))
-;   (is (= false (a-half-truth-solution true)))
-;   (is (= true (a-half-truth-solution false true false)))
-;   (is (= false (a-half-truth-solution true true true)))
-;   (is (= true (a-half-truth-solution true true true false))))
-;
-;
-; ;; problem 84
-; (deftest can-transitive-closure
-;   (is (let [divides #{[8 4] [9 3] [4 2] [27 9]}]
-;   (= (transitive-closure-solution divides) #{[4 2] [8 4] [8 2] [9 3] [27 9] [27 3]})))
-;   (is (let [more-legs
-;       #{["cat" "man"] ["man" "snake"] ["spider" "cat"]}]
-;   (= (transitive-closure-solution more-legs)
-;      #{["cat" "man"] ["cat" "snake"] ["man" "snake"]
-;        ["spider" "cat"] ["spider" "man"] ["spider" "snake"]})))
-;   (is (let [progeny
-;       #{["father" "son"] ["uncle" "cousin"] ["son" "grandson"]}]
-;   (= (transitive-closure-solution progeny)
-;      #{["father" "son"] ["father" "grandson"]
-;        ["uncle" "cousin"] ["son" "grandson"]}))))
-;
-;
-; ;; problem 85
-; (deftest can-power-set
-;   (is (= (power-set-solution #{1 :a}) #{#{1 :a} #{:a} #{} #{1}}))
-;   (is (= (power-set-solution #{}) #{#{}}))
-;   (is (= (power-set-solution #{1 2 3})
-;    #{#{} #{1} #{2} #{3} #{1 2} #{1 3} #{2 3} #{1 2 3}}))
-;   (is (= (count (power-set-solution (into #{} (range 10)))) 1024)))
-;
+
+;; problem 81
+(deftest can-set-intersection
+  (is (= (set-intersection-solution #{0 1 2 3} #{2 3 4 5}) #{2 3}))
+  (is (= (set-intersection-solution #{0 1 2} #{3 4 5}) #{}))
+  (is (= (set-intersection-solution #{:a :b :c :d} #{:c :e :a :f :d}) #{:a :c :d})))
+
+
+;; problem 82
+;; (deftest can-word-chains
+;;   (is (= true (word-chains-solution #{"hat" "coat" "dog" "cat" "oat" "cot" "hot" "hog"})))
+;;   (is (= false (word-chains-solution #{"cot" "hot" "bat" "fat"})))
+;;   (is (= false (word-chains-solution #{"to" "top" "stop" "tops" "toss"})))
+;;   (is (= true (word-chains-solution #{"spout" "do" "pot" "pout" "spot" "dot"})))
+;;   (is (= true (word-chains-solution #{"share" "hares" "shares" "hare" "are"})))
+;;   (is (= false (word-chains-solution #{"share" "hares" "hare" "are"}))))
+
+
+;; problem 83
+(deftest can-a-half-truth
+  (is (= false (a-half-truth-solution false false)))
+  (is (= true (a-half-truth-solution true false)))
+  (is (= false (a-half-truth-solution true)))
+  (is (= true (a-half-truth-solution false true false)))
+  (is (= false (a-half-truth-solution true true true)))
+  (is (= true (a-half-truth-solution true true true false))))
+
+
+;; problem 84
+(deftest can-transitive-closure
+  (is (let [divides #{[8 4] [9 3] [4 2] [27 9]}]
+  (= (transitive-closure-solution divides) #{[4 2] [8 4] [8 2] [9 3] [27 9] [27 3]})))
+  (is (let [more-legs
+      #{["cat" "man"] ["man" "snake"] ["spider" "cat"]}]
+  (= (transitive-closure-solution more-legs)
+     #{["cat" "man"] ["cat" "snake"] ["man" "snake"]
+       ["spider" "cat"] ["spider" "man"] ["spider" "snake"]})))
+  (is (let [progeny
+      #{["father" "son"] ["uncle" "cousin"] ["son" "grandson"]}]
+  (= (transitive-closure-solution progeny)
+     #{["father" "son"] ["father" "grandson"]
+       ["uncle" "cousin"] ["son" "grandson"]}))))
+
+
+;; problem 85
+(deftest can-power-set
+  (is (= (power-set-solution #{1 :a}) #{#{1 :a} #{:a} #{} #{1}}))
+  (is (= (power-set-solution #{}) #{#{}}))
+  (is (= (power-set-solution #{1 2 3})
+   #{#{} #{1} #{2} #{3} #{1 2} #{1 3} #{2 3} #{1 2 3}}))
+  (is (= (count (power-set-solution (into #{} (range 10)))) 1024)))
+
 ;
 ; ;; problem 86
 ; (deftest can-happy-numbers
