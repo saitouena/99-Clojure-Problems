@@ -1258,12 +1258,31 @@
 
 ;; problem 98 (Medium)
 (defn equivalence-classes-solution
-  [& args] ;; update args as needed
+  [f es] ;; update args as needed
   ;; A function f defined on a domain D induces an equivalence relation on D,
   ;; as follows: a is equivalent to b with respect to f if and only if (f a) is
   ;; equal to (f b). Write a function with arguments f and D that computes the
   ;; equivalence classes of D with respect to f.
-  nil)
+  (letfn [(gen-next-classes
+            [e classes]
+            (loop [classes classes
+                   new-classes []
+                   found false]
+              (if (empty? classes)
+                (if found
+                  new-classes
+                  (conj new-classes #{e}))
+                (if found
+                  (recur (rest classes) (conj new-classes (first classes)) found)
+                  (let [target (first classes)]
+                    (if (= (f e) (f (first target)))
+                      (recur (rest classes) (conj new-classes (conj target e)) true)
+                      (recur (rest classes) (conj new-classes target) false)))))))]
+    (loop [es es
+           classes (seq [])]
+      (if (empty? es)
+        (set classes)
+        (recur (rest es) (gen-next-classes (first es) classes))))))
 
 (defn to-digits
   [n]

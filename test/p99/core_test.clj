@@ -813,17 +813,17 @@
    [1 10 45 120 210 252 210 120 45 10 1])))
 
 
-; ;; problem 98
-; (deftest can-equivalence-classes
-;   (is (= (equivalence-classes-solution #(* % %) #{-2 -1 0 1 2})
-;    #{#{0} #{1 -1} #{2 -2}}))
-;   (is (= (equivalence-classes-solution #(rem % 3) #{0 1 2 3 4 5 })
-;    #{#{0 3} #{1 4} #{2 5}}))
-;   (is (= (equivalence-classes-solution identity #{0 1 2 3 4})
-;    #{#{0} #{1} #{2} #{3} #{4}}))
-;   (is (= (equivalence-classes-solution (constantly true) #{0 1 2 3 4})
-;    #{#{0 1 2 3 4}})
-; ))
+;; problem 98
+(deftest can-equivalence-classes
+  (is (= (equivalence-classes-solution #(* % %) #{-2 -1 0 1 2})
+   #{#{0} #{1 -1} #{2 -2}}))
+  (is (= (equivalence-classes-solution #(rem % 3) #{0 1 2 3 4 5 })
+   #{#{0 3} #{1 4} #{2 5}}))
+  (is (= (equivalence-classes-solution identity #{0 1 2 3 4})
+   #{#{0} #{1} #{2} #{3} #{4}}))
+  (is (= (equivalence-classes-solution (constantly true) #{0 1 2 3 4})
+   #{#{0 1 2 3 4}})
+))
 
 
 ;; problem 99
