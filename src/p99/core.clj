@@ -1194,12 +1194,21 @@
 
 
 ;; problem 95 (Easy)
+(defn check-tree
+  [x]
+  (if (sequential? x)
+    (if (not= (count x) 3)
+      false
+      (let [lf (check-tree (second x))
+            rf (check-tree (second (rest x)))]
+        (and lf rf)))
+    (= x nil)))
 (defn to-tree-or-not-to-tree-solution
-  [& args] ;; update args as needed
+  [x] ;; update args as needed
   ;; Write a predicate which checks whether or not a given sequence represents
   ;; a binary tree. Each node in the tree must have a value, a left child, and
   ;; a right child.
-  nil)
+  (check-tree x))
 
 
 ;; problem 96 (Easy)

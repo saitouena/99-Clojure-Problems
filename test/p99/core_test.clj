@@ -725,63 +725,63 @@
    [[:a :b] [:c :d] [:e :f]]))
   (is (= (partially-flatten-a-sequence-solution '((1 2)((3 4)((((5 6)))))))
    '((1 2)(3 4)(5 6)))))
-;
-;
-; ;; problem 94
-; (deftest can-game-of-life
-;   (is (= (game-of-life-solution ["      "
-;         " ##   "
-;         " ##   "
-;         "   ## "
-;         "   ## "
-;         "      "])
-;    ["      "
-;     " ##   "
-;     " #    "
-;     "    # "
-;     "   ## "
-;     "      "]))
-;   (is (= (game-of-life-solution ["     "
-;         "     "
-;         " ### "
-;         "     "
-;         "     "])
-;    ["     "
-;     "  #  "
-;     "  #  "
-;     "  #  "
-;     "     "]))
-;   (is (= (game-of-life-solution ["      "
-;         "      "
-;         "  ### "
-;         " ###  "
-;         "      "
-;         "      "])
-;    ["      "
-;     "   #  "
-;     " #  # "
-;     " #  # "
-;     "  #   "
-;     "      "])))
-;
-;
-; ;; problem 95
-; (deftest can-to-tree-or-not-to-tree
-;   (is (= (to-tree-or-not-to-tree-solution '(:a (:b nil nil) nil))
-;    true))
-;   (is (= (to-tree-or-not-to-tree-solution '(:a (:b nil nil)))
-;    false))
-;   (is (= (to-tree-or-not-to-tree-solution [1 nil [2 [3 nil nil] [4 nil nil]]])
-;    true))
-;   (is (= (to-tree-or-not-to-tree-solution [1 [2 nil nil] [3 nil nil] [4 nil nil]])
-;    false))
-;   (is (= (to-tree-or-not-to-tree-solution [1 [2 [3 [4 nil nil] nil] nil] nil])
-;    true))
-;   (is (= (to-tree-or-not-to-tree-solution [1 [2 [3 [4 false nil] nil] nil] nil])
-;    false))
-;   (is (= (to-tree-or-not-to-tree-solution '(:a nil ()))
-;    false)
-; ))
+
+
+;; ;; problem 94
+;; (deftest can-game-of-life
+;;   (is (= (game-of-life-solution ["      "
+;;                                  " ##   "
+;;                                  " ##   "
+;;                                  "   ## "
+;;                                  "   ## "
+;;                                  "      "])
+;;          ["      "
+;;           " ##   "
+;;           " #    "
+;;           "    # "
+;;           "   ## "
+;;           "      "]))
+;;   (is (= (game-of-life-solution ["     "
+;;                                  "     "
+;;                                  " ### "
+;;                                  "     "
+;;                                  "     "])
+;;          ["     "
+;;           "  #  "
+;;           "  #  "
+;;           "  #  "
+;;           "     "]))
+;;   (is (= (game-of-life-solution ["      "
+;;                                  "      "
+;;                                  "  ### "
+;;                                  " ###  "
+;;                                  "      "
+;;                                  "      "])
+;;          ["      "
+;;           "   #  "
+;;           " #  # "
+;;           " #  # "
+;;           "  #   "
+;;           "      "])))
+
+
+;; problem 95
+(deftest can-to-tree-or-not-to-tree
+  (is (= (to-tree-or-not-to-tree-solution '(:a (:b nil nil) nil))
+   true))
+  (is (= (to-tree-or-not-to-tree-solution '(:a (:b nil nil)))
+   false))
+  (is (= (to-tree-or-not-to-tree-solution [1 nil [2 [3 nil nil] [4 nil nil]]])
+   true))
+  (is (= (to-tree-or-not-to-tree-solution [1 [2 nil nil] [3 nil nil] [4 nil nil]])
+   false))
+  (is (= (to-tree-or-not-to-tree-solution [1 [2 [3 [4 nil nil] nil] nil] nil])
+   true))
+  (is (= (to-tree-or-not-to-tree-solution [1 [2 [3 [4 false nil] nil] nil] nil])
+   false))
+  (is (= (to-tree-or-not-to-tree-solution '(:a nil ()))
+   false)
+))
 ;
 ;
 ; ;; problem 96
