@@ -796,7 +796,7 @@
 (defn analyze-a-tic-tac-toe-board-solution
   [board] ;; update args as needed
   ;; A tic-tac-toe board is represented by a two dimensional vector. X is
-  ;; represented by :x, O is represented by :o, and empty is represented by :e.
+  ;; represented by :x, O is represented by :o, and empty is by :e.
   ;; A player wins by placing three Xs or three Os in a horizontal, vertical,
   ;; or diagonal row. Write a function which analyzes a tic-tac-toe board and
   ;; returns :x if X has won, :o if O has won, and nil if neither player has
@@ -1003,52 +1003,131 @@
 
 ;; problem 86 (Medium)
 (defn happy-numbers-solution
-  [& args] ;; update args as needed
+  [n] ;; update args as needed
   ;; Happy numbers are positive integers that follow a particular formula: take
   ;; each individual digit, square it, and then sum the squares to get a new
   ;; number. Repeat with the new number and eventually, you might get to a
   ;; number whose squared sum is 1. This is a happy number. An unhappy number
   ;; (or sad number) is one that loops endlessly. Write a function that
   ;; determines if a number is happy or not.
-  nil)
+  (letfn [(square [n] (* n n))
+          (step [n]
+            (loop [n n
+                   acc 0]
+              (if (= n 0)
+                acc
+                (recur (quot n 10) (+ acc (square (mod n 10)))))))]
+    (loop [n n]
+      (cond (= n 1) true
+            (= n 4) false
+            :else (recur (step n))))))
 
-
+(use 'clojure.set)
 ;; problem 88 (Easy)
 (defn symmetric-difference-solution
-  [& args] ;; update args as needed
+  [sa sb] ;; update args as needed
   ;; Write a function which returns the symmetric difference of two sets. The
   ;; symmetric difference is the set of items belonging to one but not both of
   ;; the two sets.
-  nil)
-
+  (into #{} (union (for [a sa
+                        :when (not (contains? sb a))] a)
+                  (for [b sb
+                        :when (not (contains? sa b))] b))))
 
 ;; problem 89 (Hard)
-(defn graph-tour-solution
-  [& args] ;; update args as needed
-  ;; Starting with a graph you must write a function that returns true if it is
-  ;; possible to make a tour of the graph in which every edge is visited
-  ;; exactly once.
-  ;;
-  ;; The graph is represented by a vector of tuples, where each tuple
-  ;; represents a single edge.
-  ;;
-  ;; The rules are:
-  ;;
-  ;; - You can start at any node.
-  ;; - You must visit each edge exactly once. - All edges are undirected.
-  nil)
+;; simple graphだと思って良さそう？
+;; connectedの判定をやる
+;; (defn graph-tour-solution
+;;   [g]
+;;   ;; Starting with a graph you must write a function that returns true if it is
+;;   ;; possible to make a tour of the graph in which every edge is visited
+;;   ;; exactly once.
+;;   ;;
+;;   ;; The graph is represented by a vector of tuples, where each tuple
+;;   ;; represents a single edge.
+;;   ;;
+;;   ;; The rules are:
+;;   ;;
+;;   ;; - You can start at any node.
+;;   ;; - You must visit each edge exactly once. - All edges are undirected.
+;;   (letfn [(vertex-num [g]
+;;             (loop [es g
+;;                    s #{}]
+;;               (if (empty? es)
+;;                 (count s)
+;;                 (let [[a b] (first es)]
+;;                   (recur (rest es) (into s [a b]))))))
+;;           (get-vs [es] (reduce (fn [s e] (into s e)) #{} es))
+;;           (uf [es]
+;;             (let [vs (get-vs es)
+;;                   init-uf (into {} (map #([% [%]])))]))
+;;           (connected? [g]
+;;             (loop [es g
+;;                    group (map #(set [%]) get-vs)]))
+;;           (get-deg-map [g]
+;;             ;;{:a 2, :b 3, :c 4}
+;;             (loop [es g
+;;                    mp {}]
+;;               (if (empty? es)
+;;                 mp
+;;                 (let [[a b] (first es)
+;;                       next-mp (-> mp
+;;                                   (assoc a (if (contains? mp a) (inc (mp a)) 1))
+;;                                   (assoc b (if (contains? mp b) (inc (mp b)) 1)))]
+;;                   (recur (rest es) next-mp)))))
+;;           (deg-check [deg-map]
+;;             (letfn [(check1
+;;                       []
+;;                       (let [ds (vals deg-map)
+;;                             n (count ds)]
+;;                         (and (= (->> ds (map #(mod % 2)) (filter #(= 1 %)) (count)) 2)
+;;                              (= (->> ds (map #(mod % 2)) (filter #(= 0 %)) (count)) (- n 2)))))
+;;                     (check2
+;;                       []
+;;                       (let [ds (vals deg-map)
+;;                             n (count ds)]
+;;                         (= (->> ds (map #(mod % 2)) (filter #(= 0 %)) (count)) n)))]
+;;               (or (check1) (check2))))]
+;;     (and (connected? g) (-> g (get-deg-map) (deg-check)))))
+
+(defn get-deg-map [g]
+  ;;{:a 2, :b 3, :c 4}
+  (loop [es g
+         mp {}]
+    (if (empty? es)
+      mp
+      (let [[a b] (first es)
+            next-mp (-> mp
+                        (assoc a (if (contains? mp a) (inc (mp a)) 1))
+                        (assoc b (if (contains? mp b) (inc (mp b)) 1)))]
+        (recur (rest es) next-mp)))))
 
 
 ;; problem 90 (Easy)
 (defn cartesian-product-solution
-  [& args] ;; update args as needed
+  [sa sb] ;; update args as needed
   ;; Write a function which calculates the Cartesian product of two sets.
-  nil)
+  (into #{} (for [a sa
+                  b sb] [a b])))
 
+(defn get-vs
+  ;; get vertexes
+  [g]
+  (into #{} (flatten (seq g))))
+
+;; (defn reachable-nodes
+;;   [s reachable-vs g]
+;;   ;; g is like {:a [:b,:c], :b [:a], :c [:a]}
+;;   (letfn [(iter [vs ans]
+;;             (if (empty? vs)
+;;               ans
+;;               (let [v (first vs)]
+;;                 (if (contains? reachable-vs v)))))]
+;;     (iter (g s) #{})))
 
 ;; problem 91 (Hard)
 (defn graph-connectivity-solution
-  [& args] ;; update args as needed
+  [g] ;; update args as needed
   ;; Given a graph, determine whether the graph is connected. A connected graph
   ;; is such that a path exists between any two given nodes.
   ;;
@@ -1060,10 +1139,10 @@
   ;;
   nil)
 
-
+(require '[clojure.string :as str])
 ;; problem 92 (Hard)
 (defn read-roman-numerals-solution
-  [& args] ;; update args as needed
+  [s] ;; update args as needed
   ;; Roman numerals are easy to recognize, but not everyone knows all the rules
   ;; necessary to work with them. Write a function to parse a Roman-numeral
   ;; string and return the number it represents.
@@ -1072,17 +1151,22 @@
   ;; follow the subtractive principle. You don't need to handle any numbers
   ;; greater than MMMCMXCIX (3999), the largest number representable with
   ;; ordinary letters.
-  nil)
+  (let [cs (str/split s "")
+        tbl #{"I"}]
+    nil))
 
 
 ;; problem 93 (Medium)
 (defn partially-flatten-a-sequence-solution
-  [& args] ;; update args as needed
+  [es] ;; update args as needed
   ;; Write a function which flattens any nested combination of sequential
   ;; things (lists, vectors, etc.), but maintains the lowest level sequential
   ;; items. The result should be a sequence of sequences with only one level of
   ;; nesting.
-  nil)
+  (let [es (seq es)]
+    (if (and (sequential? es) (not (empty? es)) (not (sequential? (first es))))
+      (lazy-seq [es])
+      (lazy-seq (mapcat partially-flatten-a-sequence-solution es)))))
 
 
 ;; problem 94 (Hard)

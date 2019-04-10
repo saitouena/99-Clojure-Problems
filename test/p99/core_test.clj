@@ -651,48 +651,49 @@
    #{#{} #{1} #{2} #{3} #{1 2} #{1 3} #{2 3} #{1 2 3}}))
   (is (= (count (power-set-solution (into #{} (range 10)))) 1024)))
 
-;
-; ;; problem 86
-; (deftest can-happy-numbers
-;   (is (= (happy-numbers-solution 7) true))
-;   (is (= (happy-numbers-solution 986543210) true))
-;   (is (= (happy-numbers-solution 2) false))
-;   (is (= (happy-numbers-solution 3) false)))
-;
-;
-; ;; problem 88
-; (deftest can-symmetric-difference
-;   (is (= (symmetric-difference-solution #{1 2 3 4 5 6} #{1 3 5 7}) #{2 4 6 7}))
-;   (is (= (symmetric-difference-solution #{:a :b :c} #{}) #{:a :b :c}))
-;   (is (= (symmetric-difference-solution #{} #{4 5 6}) #{4 5 6}))
-;   (is (= (symmetric-difference-solution #{[1 2] [2 3]} #{[2 3] [3 4]}) #{[1 2] [3 4]})))
-;
-;
-; ;; problem 89
-; (deftest can-graph-tour
-;   (is (= true (graph-tour-solution [[:a :b]])))
-;   (is (= false (graph-tour-solution [[:a :a] [:b :b]])))
-;   (is (= false (graph-tour-solution [[:a :b] [:a :b] [:a :c] [:c :a]
-;                [:a :d] [:b :d] [:c :d]])))
-;   (is (= true (graph-tour-solution [[1 2] [2 3] [3 4] [4 1]])))
-;   (is (= true (graph-tour-solution [[:a :b] [:a :c] [:c :b] [:a :e]
-;               [:b :e] [:a :d] [:b :d] [:c :e]
-;               [:d :e] [:c :f] [:d :f]])))
-;   (is (= false (graph-tour-solution [[1 2] [2 3] [2 4] [2 5]]))))
-;
-;
-; ;; problem 90
-; (deftest can-cartesian-product
-;   (is (= (cartesian-product-solution #{"ace" "king" "queen"} #{"&#9824;" "&#9829;" "&#9830;" "&#9827;"})
-;    #{["ace"   "&#9824;"] ["ace"   "&#9829;"] ["ace"   "&#9830;"] ["ace"   "&#9827;"]
-;      ["king"  "&#9824;"] ["king"  "&#9829;"] ["king"  "&#9830;"] ["king"  "&#9827;"]
-;      ["queen" "&#9824;"] ["queen" "&#9829;"] ["queen" "&#9830;"] ["queen" "&#9827;"]}))
-;   (is (= (cartesian-product-solution #{1 2 3} #{4 5})
-;    #{[1 4] [2 4] [3 4] [1 5] [2 5] [3 5]}))
-;   (is (= 300 (count (cartesian-product-solution (into #{} (range 10))
-;                   (into #{} (range 30)))))))
-;
-;
+
+;; problem 86
+(deftest can-happy-numbers
+  (is (= (happy-numbers-solution 7) true))
+  (is (= (happy-numbers-solution 986543210) true))
+  (is (= (happy-numbers-solution 2) false))
+  (is (= (happy-numbers-solution 3) false)))
+
+
+;; problem 88
+(deftest can-symmetric-difference
+  (is (= (symmetric-difference-solution #{1 2 3 4 5 6} #{1 3 5 7}) #{2 4 6 7}))
+  (is (= (symmetric-difference-solution #{:a :b :c} #{}) #{:a :b :c}))
+  (is (= (symmetric-difference-solution #{} #{4 5 6}) #{4 5 6}))
+  (is (= (symmetric-difference-solution #{[1 2] [2 3]} #{[2 3] [3 4]}) #{[1 2] [3 4]})))
+
+
+;; problem 89
+;; (deftest can-graph-tour
+;;   (is (= true (graph-tour-solution [[:a :b]])))
+;;   (is (= false (graph-tour-solution [[:a :a] [:b :b]])))
+;;   (is (= false (graph-tour-solution [[:a :b] [:a :b] [:a :c] [:c :a]
+;;                [:a :d] [:b :d] [:c :d]])))
+;;   (is (= true (graph-tour-solution [[1 2] [2 3] [3 4] [4 1]])))
+;;   (is (= true (graph-tour-solution [[:a :b] [:a :c] [:c :b] [:a :e]
+;;               [:b :e] [:a :d] [:b :d] [:c :e]
+;;               [:d :e] [:c :f] [:d :f]])))
+;;   (is (= false (graph-tour-solution [[1 2] [2 3] [2 4] [2 5]]))))
+
+;; ;
+
+;; problem 90
+(deftest can-cartesian-product
+  (is (= (cartesian-product-solution #{"ace" "king" "queen"} #{"&#9824;" "&#9829;" "&#9830;" "&#9827;"})
+   #{["ace"   "&#9824;"] ["ace"   "&#9829;"] ["ace"   "&#9830;"] ["ace"   "&#9827;"]
+     ["king"  "&#9824;"] ["king"  "&#9829;"] ["king"  "&#9830;"] ["king"  "&#9827;"]
+     ["queen" "&#9824;"] ["queen" "&#9829;"] ["queen" "&#9830;"] ["queen" "&#9827;"]}))
+  (is (= (cartesian-product-solution #{1 2 3} #{4 5})
+   #{[1 4] [2 4] [3 4] [1 5] [2 5] [3 5]}))
+  (is (= 300 (count (cartesian-product-solution (into #{} (range 10))
+                  (into #{} (range 30)))))))
+
+
 ; ;; problem 91
 ; (deftest can-graph-connectivity
 ;   (is (= true (graph-connectivity-solution #{[:a :a]})))
@@ -715,15 +716,15 @@
 ;   (is (= 48 (read-roman-numerals-solution "XLVIII"))
 ; ))
 ;
-;
-; ;; problem 93
-; (deftest can-partially-flatten-a-sequence
-;   (is (= (partially-flatten-a-sequence-solution [["Do"] ["Nothing"]])
-;    [["Do"] ["Nothing"]]))
-;   (is (= (partially-flatten-a-sequence-solution [[[[:a :b]]] [[:c :d]] [:e :f]])
-;    [[:a :b] [:c :d] [:e :f]]))
-;   (is (= (partially-flatten-a-sequence-solution '((1 2)((3 4)((((5 6)))))))
-;    '((1 2)(3 4)(5 6)))))
+
+;; problem 93
+(deftest can-partially-flatten-a-sequence
+  (is (= (partially-flatten-a-sequence-solution [["Do"] ["Nothing"]])
+   [["Do"] ["Nothing"]]))
+  (is (= (partially-flatten-a-sequence-solution [[[[:a :b]]] [[:c :d]] [:e :f]])
+   [[:a :b] [:c :d] [:e :f]]))
+  (is (= (partially-flatten-a-sequence-solution '((1 2)((3 4)((((5 6)))))))
+   '((1 2)(3 4)(5 6)))))
 ;
 ;
 ; ;; problem 94
