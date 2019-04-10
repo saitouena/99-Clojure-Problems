@@ -824,10 +824,10 @@
 ;   (is (= (equivalence-classes-solution (constantly true) #{0 1 2 3 4})
 ;    #{#{0 1 2 3 4}})
 ; ))
-;
-;
-; ;; problem 99
-; (deftest can-product-digits
-;   (is (= (product-digits-solution 1 1) [1]))
-;   (is (= (product-digits-solution 99 9) [8 9 1]))
-;   (is (= (product-digits-solution 999 99) [9 8 9 0 1])))
+
+
+;; problem 99
+(deftest can-product-digits
+  (is (= (product-digits-solution 1 1) [1]))
+  (is (= (product-digits-solution 99 9) [8 9 1]))
+  (is (= (product-digits-solution 999 99) [9 8 9 0 1])))

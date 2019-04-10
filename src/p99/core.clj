@@ -1255,10 +1255,16 @@
   ;; equivalence classes of D with respect to f.
   nil)
 
-
+(defn to-digits
+  [n]
+  (loop [n n
+         acc []]
+    (if (= n 0)
+      (vec (reverse acc))
+      (recur (quot n 10) (conj acc (mod n 10))))))
 ;; problem 99 (Easy)
 (defn product-digits-solution
-  [& args] ;; update args as needed
+  [x y] ;; update args as needed
   ;; Write a function which multiplies two numbers and returns the result as a
   ;; sequence of its digits.
-  nil)
+  (to-digits (* x y)))
