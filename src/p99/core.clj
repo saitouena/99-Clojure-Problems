@@ -1234,7 +1234,7 @@
 
 ;; problem 97 (Easy)
 (defn pascal-s-triangle-solution
-  [& args] ;; update args as needed
+  [n] ;; update args as needed
   ;; Pascal's triangle is a triangle of numbers computed using the following
   ;; rules:
   ;;  - The first row is 1.
@@ -1243,7 +1243,17 @@
   ;;
   ;; Write a function which returns the nth row of Pascal's Triangle.
   ;;
-  nil)
+  (letfn [(next-row [prev]
+            (loop [prev prev
+                   next [1]]
+              (if (= (count prev) 1)
+                (conj next 1)
+                (recur (rest prev) (conj next (+ (first prev) (second prev)))))))]
+    (loop [n (dec n)
+           ans [1]]
+      (if (= n 0)
+        ans
+        (recur (dec n) (next-row ans))))))
 
 
 ;; problem 98 (Medium)

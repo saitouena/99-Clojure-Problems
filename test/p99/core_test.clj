@@ -799,20 +799,20 @@
           [2 [3 nil [4 [6 nil nil] nil]] nil]])
    false)))
 
-;
-; ;; problem 97
-; (deftest can-pascal-s-triangle
-;   (is (= (pascal-s-triangle-solution 1) [1]))
-;   (is (= (map pascal-s-triangle-solution (range 1 6))
-;    [     [1]
-;         [1 1]
-;        [1 2 1]
-;       [1 3 3 1]
-;      [1 4 6 4 1]]))
-;   (is (= (pascal-s-triangle-solution 11)
-;    [1 10 45 120 210 252 210 120 45 10 1])))
-;
-;
+
+;; problem 97
+(deftest can-pascal-s-triangle
+  (is (= (pascal-s-triangle-solution 1) [1]))
+  (is (= (map pascal-s-triangle-solution (range 1 6))
+   [     [1]
+        [1 1]
+       [1 2 1]
+      [1 3 3 1]
+     [1 4 6 4 1]]))
+  (is (= (pascal-s-triangle-solution 11)
+   [1 10 45 120 210 252 210 120 45 10 1])))
+
+
 ; ;; problem 98
 ; (deftest can-equivalence-classes
 ;   (is (= (equivalence-classes-solution #(* % %) #{-2 -1 0 1 2})
