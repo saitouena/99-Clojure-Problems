@@ -1211,14 +1211,25 @@
   (check-tree x))
 
 
+(defn mirror-tree
+  [t]
+  (if (sequential? t)
+    (let [lt (second t)
+          rt (second (rest t))]
+      (lazy-seq (seq [(first t) (mirror-tree rt) (mirror-tree lt)])))
+    t))
 ;; problem 96 (Easy)
 (defn beauty-is-symmetry-solution
-  [& args] ;; update args as needed
+  [t] ;; update args as needed
   ;; Let us define a binary tree as "symmetric" if the left half of the tree is
   ;; the mirror image of the right half of the tree. Write a predicate to
   ;; determine whether or not a given binary tree is symmetric. (see To Tree,
   ;; or not to Tree for a reminder on the tree representation we're using).
-  nil)
+  (if (sequential? t)
+    (let [lt (second t)
+          rt (second (rest t))]
+      (= lt (mirror-tree rt)))
+    true))
 
 
 ;; problem 97 (Easy)
