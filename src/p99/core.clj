@@ -711,7 +711,15 @@
   ;; :list, or :vector - describing the type of collection it was given. You
   ;; won't be allowed to inspect their class or use the built-in predicates
   ;; like list? - the point is to poke at them and understand their behavior.
-  nil)
+  (if (empty? (flatten (conj seq [:a 1])))
+    (if (nil? ((conj seq [:a 2]) :a))
+      :set
+      :map)
+    (let [new-seq (conj seq 'ignore 'test-symbol)
+          fst (first new-seq)]
+      (if (= fst 'test-symbol)
+        :list
+        :vector))))
 
 
 ;; problem 66 (Easy)

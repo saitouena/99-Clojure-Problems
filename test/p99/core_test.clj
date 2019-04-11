@@ -445,13 +445,13 @@
   (is (=  6 (reduce intro-to-reduce-solution 1 [2 3]))))
 
 
-;; problem 65
-;; (deftest can-black-box-testing
-;;   (is (= :map (black-box-testing-solution {:a 1, :b 2})))
-;;   (is (= :list (black-box-testing-solution (range (rand-int 20)))))
-;;   (is (= :vector (black-box-testing-solution [1 2 3 4 5 6])))
-;;   (is (= :set (black-box-testing-solution #{10 (rand-int 5)})))
-;;   (is (= [:map :set :vector :list] (map black-box-testing-solution [{} #{} [] ()]))))
+;;problem 65
+(deftest can-black-box-testing
+  (is (= :map (black-box-testing-solution {:a 1, :b 2})))
+  (is (= :list (black-box-testing-solution (range (rand-int 20)))))
+  (is (= :vector (black-box-testing-solution [1 2 3 4 5 6])))
+  (is (= :set (black-box-testing-solution #{10 (rand-int 5)})))
+  (is (= [:map :set :vector :list] (map black-box-testing-solution [{} #{} [] ()]))))
 
 
 ;; problem 66
