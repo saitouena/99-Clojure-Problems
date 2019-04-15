@@ -966,7 +966,15 @@
 ;;   (letfn [(dfs [c rest visited]
 ;;             (if (empty? rest)
 ;;               true
-              
+(defn permutation
+  [es]
+  [es])
+
+(defn word-chains-solution
+  [word-set]
+  (-> (seq word-set)
+      (permutation)
+      (map )))            
 
 ;; problem 83 (Easy)
 (defn a-half-truth-solution
@@ -1134,6 +1142,31 @@
 ;;     (iter (g s) #{})))
 
 ;; problem 91 (Hard)
+(defn get-all-vertexes
+  [g]
+  (loop [es (seq g)
+         st #{}]
+    (if (empty? es)
+      st
+      (let [[u v] (first es)]
+        (recur (rest es) (conj st u v))))))
+(defn init-uf
+  [vs]
+  (map #(set (vector %)) vs))
+(defn merge-uf
+  [u v uf]
+  (let [us (filter #(contains? % u) uf)
+        vs (filter #(contains? % v) uf)
+        rs (filter #(not (or (contains? % u) (contains? % v))) uf)]
+    (conj rs (union (first us) (first vs)))))
+(defn union-find-weighted
+  [g]
+  (loop [g (seq g)
+         uf (init-uf (get-all-vertexes g))]
+    (if (empty? g)
+      uf
+      (let [[u v] (first g)]
+        (recur (rest g) (merge-uf u v uf))))))
 (defn graph-connectivity-solution
   [g] ;; update args as needed
   ;; Given a graph, determine whether the graph is connected. A connected graph
@@ -1145,7 +1178,7 @@
   ;; member of a tuple being a vertex/node in the graph.
   ;; -Each edge is undirected (can be traversed either direction).
   ;;
-  nil)
+  (= (count (union-find-weighted g)) 1))
 
 (require '[clojure.string :as str])
 ;; problem 92 (Hard)

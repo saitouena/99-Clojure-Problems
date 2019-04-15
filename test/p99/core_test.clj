@@ -694,19 +694,19 @@
                   (into #{} (range 30)))))))
 
 
-; ;; problem 91
-; (deftest can-graph-connectivity
-;   (is (= true (graph-connectivity-solution #{[:a :a]})))
-;   (is (= true (graph-connectivity-solution #{[:a :b]})))
-;   (is (= false (graph-connectivity-solution #{[1 2] [2 3] [3 1]
-;                [4 5] [5 6] [6 4]})))
-;   (is (= true (graph-connectivity-solution #{[1 2] [2 3] [3 1]
-;               [4 5] [5 6] [6 4] [3 4]})))
-;   (is (= false (graph-connectivity-solution #{[:a :b] [:b :c] [:c :d]
-;                [:x :y] [:d :a] [:b :e]})))
-;   (is (= true (graph-connectivity-solution #{[:a :b] [:b :c] [:c :d]
-;               [:x :y] [:d :a] [:b :e] [:x :a]}))))
-;
+;; problem 91
+(deftest can-graph-connectivity
+  (is (= true (graph-connectivity-solution #{[:a :a]})))
+  (is (= true (graph-connectivity-solution #{[:a :b]})))
+  (is (= false (graph-connectivity-solution #{[1 2] [2 3] [3 1]
+               [4 5] [5 6] [6 4]})))
+  (is (= true (graph-connectivity-solution #{[1 2] [2 3] [3 1]
+              [4 5] [5 6] [6 4] [3 4]})))
+  (is (= false (graph-connectivity-solution #{[:a :b] [:b :c] [:c :d]
+               [:x :y] [:d :a] [:b :e]})))
+  (is (= true (graph-connectivity-solution #{[:a :b] [:b :c] [:c :d]
+              [:x :y] [:d :a] [:b :e] [:x :a]}))))
+
 ;
 ; ;; problem 92
 ; (deftest can-read-roman-numerals
