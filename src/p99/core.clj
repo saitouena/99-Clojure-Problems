@@ -1050,61 +1050,88 @@
                   (for [b sb
                         :when (not (contains? sa b))] b))))
 
+;; helper for graph-tour (from graph-connectivity)
+(defn get-all-vertexes
+  [g]
+  (loop [es (seq g)
+         st #{}]
+    (if (empty? es)
+      st
+      (let [[u v] (first es)]
+        (recur (rest es) (conj st u v))))))
+(defn init-uf
+  [vs]
+  (map #(set (vector %)) vs))
+(defn merge-uf
+  [u v uf]
+  (let [us (filter #(contains? % u) uf)
+        vs (filter #(contains? % v) uf)
+        rs (filter #(not (or (contains? % u) (contains? % v))) uf)]
+    (conj rs (union (first us) (first vs)))))
+(defn union-find-weighted
+  [g]
+  (loop [g (seq g)
+         uf (init-uf (get-all-vertexes g))]
+    (if (empty? g)
+      uf
+      (let [[u v] (first g)]
+        (recur (rest g) (merge-uf u v uf))))))
+(defn graph-connectivity-solution
+  [g] ;; update args as needed
+  ;; Given a graph, determine whether the graph is connected. A connected graph
+  ;; is such that a path exists between any two given nodes.
+  ;;
+  ;; -Your function must return true if the graph is connected and false
+  ;; otherwise.
+  ;; -You will be given a set of tuples representing the edges of a graph. Each
+  ;; member of a tuple being a vertex/node in the graph.
+  ;; -Each edge is undirected (can be traversed either direction).
+  ;;
+  (= (count (union-find-weighted g)) 1))
+
 ;; problem 89 (Hard)
 ;; simple graphだと思って良さそう？
 ;; connectedの判定をやる
-;; (defn graph-tour-solution
-;;   [g]
-;;   ;; Starting with a graph you must write a function that returns true if it is
-;;   ;; possible to make a tour of the graph in which every edge is visited
-;;   ;; exactly once.
-;;   ;;
-;;   ;; The graph is represented by a vector of tuples, where each tuple
-;;   ;; represents a single edge.
-;;   ;;
-;;   ;; The rules are:
-;;   ;;
-;;   ;; - You can start at any node.
-;;   ;; - You must visit each edge exactly once. - All edges are undirected.
-;;   (letfn [(vertex-num [g]
-;;             (loop [es g
-;;                    s #{}]
-;;               (if (empty? es)
-;;                 (count s)
-;;                 (let [[a b] (first es)]
-;;                   (recur (rest es) (into s [a b]))))))
-;;           (get-vs [es] (reduce (fn [s e] (into s e)) #{} es))
-;;           (uf [es]
-;;             (let [vs (get-vs es)
-;;                   init-uf (into {} (map #([% [%]])))]))
-;;           (connected? [g]
-;;             (loop [es g
-;;                    group (map #(set [%]) get-vs)]))
-;;           (get-deg-map [g]
-;;             ;;{:a 2, :b 3, :c 4}
-;;             (loop [es g
-;;                    mp {}]
-;;               (if (empty? es)
-;;                 mp
-;;                 (let [[a b] (first es)
-;;                       next-mp (-> mp
-;;                                   (assoc a (if (contains? mp a) (inc (mp a)) 1))
-;;                                   (assoc b (if (contains? mp b) (inc (mp b)) 1)))]
-;;                   (recur (rest es) next-mp)))))
-;;           (deg-check [deg-map]
-;;             (letfn [(check1
-;;                       []
-;;                       (let [ds (vals deg-map)
-;;                             n (count ds)]
-;;                         (and (= (->> ds (map #(mod % 2)) (filter #(= 1 %)) (count)) 2)
-;;                              (= (->> ds (map #(mod % 2)) (filter #(= 0 %)) (count)) (- n 2)))))
-;;                     (check2
-;;                       []
-;;                       (let [ds (vals deg-map)
-;;                             n (count ds)]
-;;                         (= (->> ds (map #(mod % 2)) (filter #(= 0 %)) (count)) n)))]
-;;               (or (check1) (check2))))]
-;;     (and (connected? g) (-> g (get-deg-map) (deg-check)))))
+(defn graph-tour-solution
+  [g]
+  ;; Starting with a graph you must write a function that returns true if it is
+  ;; possible to make a tour of the graph in which every edge is visited
+  ;; exactly once.
+  ;;
+  ;; The graph is represented by a vector of tuples, where each tuple
+  ;; represents a single edge.
+  ;;
+  ;; The rules are:
+  ;;
+  ;; - You can start at any node.
+  ;; - You must visit each edge exactly once. - All edges are undirected.
+  (letfn [(connected? [g]
+           (graph-connectivity-solution g))
+          (get-deg-map [g]
+            ;;{:a 2, :b 3, :c 4}
+            (loop [es g
+                   mp {}]
+              (if (empty? es)
+                mp
+                (let [[a b] (first es)
+                      next-mp (-> mp
+                                  (assoc a (if (contains? mp a) (inc (mp a)) 1))
+                                  (assoc b (if (contains? mp b) (inc (mp b)) 1)))]
+                  (recur (rest es) next-mp)))))
+          (deg-check [deg-map]
+            (letfn [(check1
+                      []
+                      (let [ds (vals deg-map)
+                            n (count ds)]
+                        (and (= (->> ds (map #(mod % 2)) (filter #(= 1 %)) (count)) 2)
+                             (= (->> ds (map #(mod % 2)) (filter #(= 0 %)) (count)) (- n 2)))))
+                    (check2
+                      []
+                      (let [ds (vals deg-map)
+                            n (count ds)]
+                        (= (->> ds (map #(mod % 2)) (filter #(= 0 %)) (count)) n)))]
+              (or (check1) (check2))))]
+    (and (connected? g) (-> g (get-deg-map) (deg-check)))))
 
 (defn get-deg-map [g]
   ;;{:a 2, :b 3, :c 4}

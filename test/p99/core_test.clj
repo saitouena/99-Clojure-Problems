@@ -669,18 +669,17 @@
 
 
 ;; problem 89
-;; (deftest can-graph-tour
-;;   (is (= true (graph-tour-solution [[:a :b]])))
-;;   (is (= false (graph-tour-solution [[:a :a] [:b :b]])))
-;;   (is (= false (graph-tour-solution [[:a :b] [:a :b] [:a :c] [:c :a]
-;;                [:a :d] [:b :d] [:c :d]])))
-;;   (is (= true (graph-tour-solution [[1 2] [2 3] [3 4] [4 1]])))
-;;   (is (= true (graph-tour-solution [[:a :b] [:a :c] [:c :b] [:a :e]
-;;               [:b :e] [:a :d] [:b :d] [:c :e]
-;;               [:d :e] [:c :f] [:d :f]])))
-;;   (is (= false (graph-tour-solution [[1 2] [2 3] [2 4] [2 5]]))))
+(deftest can-graph-tour
+  (is (= true (graph-tour-solution [[:a :b]])))
+  (is (= false (graph-tour-solution [[:a :a] [:b :b]])))
+  (is (= false (graph-tour-solution [[:a :b] [:a :b] [:a :c] [:c :a]
+               [:a :d] [:b :d] [:c :d]])))
+  (is (= true (graph-tour-solution [[1 2] [2 3] [3 4] [4 1]])))
+  (is (= true (graph-tour-solution [[:a :b] [:a :c] [:c :b] [:a :e]
+              [:b :e] [:a :d] [:b :d] [:c :e]
+              [:d :e] [:c :f] [:d :f]])))
+  (is (= false (graph-tour-solution [[1 2] [2 3] [2 4] [2 5]]))))
 
-;; ;
 
 ;; problem 90
 (deftest can-cartesian-product
